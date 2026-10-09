@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 import { playSfx } from "@/lib/sound";
+import introArt from "@/assets/intro-throne.jpg";
 
 const TIPS = [
-  "جهّز أسطولك… العواصف لا ترحم",
+  "العرش لا يُورَّث… بل يُنتزع",
   "الكنوز تُقسم بالعدل… أو بالسيف",
   "راقب الأفق، السفن المعادية قريبة",
   "رفع الأشرعة… انطلقنا!",
@@ -58,8 +59,8 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       aria-label="جاري تحميل اللعبة"
     >
       <img
-        src="https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/cc4c68c1-f2cf-4ab4-be81-1e34ccc7247e/intro.jpg"
-        alt="طاقم القراصنة أمام سفينتهم عند الغروب"
+        src={introArt}
+        alt="عرش ذهبي يرتفع من بحر عاصف تحت ضوء القمر"
         width={1088}
         height={1920}
         className="intro-art"
@@ -68,10 +69,10 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
 
       <div className="intro-content">
         <h1 className="intro-title">
-          <span>PIRATE</span>
-          <span className="intro-title-accent">BAY</span>
+          <span>عرش</span>
+          <span className="intro-title-accent">البحار</span>
         </h1>
-        <p className="intro-sub">أسطورة الخليج الذهبي</p>
+        <p className="intro-sub">THRONE OF SEAS — من يحكم الموج يحكم العالم</p>
 
         <div className="intro-bar" aria-hidden="true">
           <div className="intro-bar-fill" style={{ width: `${progress}%` }}>
