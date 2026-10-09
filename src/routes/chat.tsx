@@ -13,9 +13,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/chat")({
   head: () => ({
     meta: [
-      { title: "دردشة الخليج — Island Bay" },
-      { name: "description", content: "دردشة مباشرة بين لاعبي خليج الجزيرة: غرفة عامة ومحادثات خاصة مع الأصدقاء." },
-      { property: "og:title", content: "دردشة الخليج — Island Bay" },
+      { title: "دردشة الخليج — عرش البحار" },
+      { name: "description", content: "دردشة مباشرة بين لاعبي عرش البحار: غرفة عامة ومحادثات خاصة مع الأصدقاء." },
+      { property: "og:title", content: "دردشة الخليج — عرش البحار" },
       { property: "og:description", content: "غرفة عامة ومحادثات خاصة بين قباطنة الخليج، بالوقت الحقيقي." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

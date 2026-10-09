@@ -27,9 +27,9 @@ import {
 export const Route = createFileRoute("/tribes")({
   head: () => ({
     meta: [
-      { title: "القبائل — خليج الجزيرة" },
-      { name: "description", content: "انضم إلى قبيلة، ارتقِ في الرتب، أنجز مهام القبيلة وتصدّر قائمة القادة في خليج الجزيرة." },
-      { property: "og:title", content: "القبائل — خليج الجزيرة" },
+      { title: "القبائل — عرش البحار" },
+      { name: "description", content: "انضم إلى قبيلة، ارتقِ في الرتب، أنجز مهام القبيلة وتصدّر قائمة القادة في عرش البحار." },
+      { property: "og:title", content: "القبائل — عرش البحار" },
       { property: "og:description", content: "قبائل القراصنة: انضمام، ترقيات، مهام يومية وقائمة متصدرين." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

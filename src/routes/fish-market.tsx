@@ -10,10 +10,10 @@ import { playSfx } from "@/lib/sound";
 export const Route = createFileRoute("/fish-market")({
   head: () => ({
     meta: [
-      { title: "سوق السمك — Island Bay" },
+      { title: "سوق السمك — عرش البحار" },
       { name: "description", content: "بِع صيدك اليومي في سوق السمك وتابع مخطط الأسعار والجودة واللآلئ." },
-      { property: "og:title", content: "سوق السمك — Island Bay" },
-      { property: "og:description", content: "أسعار الأسماك اللحظية ومخطط السوق وبيع الصيد داخل خليج الجزيرة." },
+      { property: "og:title", content: "سوق السمك — عرش البحار" },
+      { property: "og:description", content: "أسعار الأسماك اللحظية ومخطط السوق وبيع الصيد داخل عرش البحار." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

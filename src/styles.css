@@ -2343,3 +2343,96 @@
   .chat-sidebar { position: relative; transform: none; flex: 0 0 14rem; }
   .chat-menu-toggle, .chat-sidebar-scrim { display: none; }
 }
+
+/* ═══ Throne of Seas design system — obsidian navy + polished gold ═══ */
+:root {
+  --tos-abyss: oklch(0.14 0.03 245);
+  --tos-deep: oklch(0.19 0.04 240);
+  --tos-glass: oklch(0.17 0.035 242 / 0.88);
+  --tos-line: oklch(0.78 0.12 82 / 0.35);
+  --tos-gold: oklch(0.82 0.13 84);
+  --tos-gold-deep: oklch(0.62 0.12 72);
+  --tos-aqua: oklch(0.78 0.11 200);
+  --tos-text: oklch(0.95 0.015 90);
+  --tos-subtle: oklch(0.78 0.02 240);
+  --tos-sheet-max: 72%;
+}
+
+/* Bottom sheet windows: rise from below, match stage width, keep the top of the sea visible. */
+.win-overlay {
+  position: absolute !important;
+  inset: 0;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: stretch;
+  padding: 0 !important;
+  background: linear-gradient(180deg, transparent 0%, oklch(0.08 0.03 245 / 0.35) 30%, oklch(0.08 0.03 245 / 0.7) 100%) !important;
+  backdrop-filter: none !important;
+}
+.win-frame, .win-lg, .win-xl {
+  position: relative;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: var(--tos-sheet-max);
+  max-height: var(--tos-sheet-max) !important;
+  border-radius: 1.6rem 1.6rem 0 0 !important;
+  border: 1px solid var(--tos-line) !important;
+  border-bottom: 0 !important;
+  background:
+    radial-gradient(120% 60% at 50% 0%, oklch(0.3 0.06 230 / 0.55), transparent 65%),
+    linear-gradient(180deg, var(--tos-deep), var(--tos-abyss)) !important;
+  box-shadow: 0 -18px 50px oklch(0.04 0.02 245 / 0.7), inset 0 1px 0 oklch(0.9 0.1 85 / 0.25) !important;
+  animation: tosSheetUp 380ms cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+.win-frame::before {
+  content: ""; position: absolute; top: 0.45rem; left: 50%; translate: -50% 0;
+  width: 3rem; height: 0.3rem; border-radius: 99px; background: var(--tos-line);
+}
+@keyframes tosSheetUp { from { transform: translateY(100%); } to { transform: none; } }
+.win-head {
+  padding: 1.15rem 1.1rem 0.75rem !important;
+  border-bottom: 1px solid var(--tos-line) !important;
+  background: transparent !important;
+}
+.win-title h2 { color: var(--tos-gold) !important; font-size: 1.15rem !important; letter-spacing: 0.01em; text-shadow: none !important; }
+.win-title p { color: var(--tos-subtle) !important; }
+.win-close {
+  width: 2.2rem !important; height: 2.2rem !important; border-radius: 0.75rem !important;
+  border: 1px solid var(--tos-line) !important;
+  background: oklch(1 0 0 / 0.06) !important; color: var(--tos-text) !important;
+}
+.win-close:hover { background: oklch(1 0 0 / 0.12) !important; }
+.win-embed { color: var(--tos-text) !important; }
+.win-embed > .relative { height: 100% !important; }
+.dock-content { max-height: none; }
+
+/* Cards & pill tabs inside sheets */
+.win-embed .dock-tabs { gap: 0.4rem; border-bottom: 0; padding: 0.7rem 0.9rem; }
+.win-embed .dock-tab {
+  border-radius: 999px; border: 1px solid var(--tos-line); height: 2.2rem;
+  background: oklch(1 0 0 / 0.04); color: var(--tos-subtle);
+}
+.win-embed .dock-tab.active { background: linear-gradient(180deg, var(--tos-gold), var(--tos-gold-deep)); color: var(--tos-abyss); border-color: transparent; font-weight: 800; }
+.win-embed .ranking-list li, .win-embed .inventory-world {
+  border-radius: 0.9rem; border: 1px solid oklch(1 0 0 / 0.08);
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.05), oklch(1 0 0 / 0.02));
+}
+
+/* Intro refresh */
+.intro-title { font-weight: 900; letter-spacing: 0; }
+.intro-title-accent { color: var(--tos-gold); }
+.intro-sub { color: var(--tos-subtle); letter-spacing: 0.04em; }
+
+/* Admin studio live preview */
+.studio-stage { position: relative; aspect-ratio: 16/9; border-radius: 1rem; overflow: hidden; border: 1px solid var(--tos-line); background: var(--tos-abyss); }
+.studio-stage > img.studio-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.studio-stage .studio-actor { position: absolute; left: 50%; bottom: 14%; translate: -50% 0; width: 42%; filter: drop-shadow(0 10px 12px oklch(0.05 0.02 245 / 0.7)); animation: studioBob 3.2s ease-in-out infinite; }
+@keyframes studioBob { 50% { transform: translateY(-6px) rotate(-1deg); } }
+.studio-stage .studio-pose { position: absolute; top: 0.6rem; inset-inline-start: 0.6rem; padding: 0.2rem 0.6rem; border-radius: 99px; background: var(--tos-glass); color: var(--tos-gold); font-size: 0.75rem; }
+.studio-bgs { display: flex; gap: 0.4rem; overflow-x: auto; padding-block: 0.5rem; }
+.studio-bgs button { flex: none; width: 5.5rem; aspect-ratio: 16/10; border-radius: 0.6rem; overflow: hidden; border: 2px solid transparent; padding: 0; background: none; }
+.studio-bgs button.active { border-color: var(--tos-gold); }
+.studio-bgs img { width: 100%; height: 100%; object-fit: cover; }
+.studio-poses { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.studio-poses button { border-radius: 99px; padding: 0.25rem 0.7rem; font-size: 0.75rem; border: 1px solid var(--tos-line); background: oklch(1 0 0 / 0.04); color: var(--tos-subtle); }
+.studio-poses button.active { background: var(--tos-gold); color: var(--tos-abyss); }

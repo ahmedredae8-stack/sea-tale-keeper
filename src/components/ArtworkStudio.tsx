@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { ARTWORK_UPDATED, artworkUrl, listArtwork, type ArtworkPose } from "@/lib/artwork";
 import { fleetCatalog } from "@/lib/fleetCatalog";
 import { WEAPONS } from "@/lib/items";
+import { themes } from "@/lib/themes";
 
 const poses = {
   ship: [["idle", "عادية"], ["cast", "رمي الشباك"], ["submerged", "تحت الماء"], ["haul", "لم الشباك"]],
@@ -26,6 +27,9 @@ export function ArtworkStudio() {
   const [busy, setBusy] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const pendingPose = useRef<ArtworkPose["pose"]>("idle");
+  const [bgId, setBgId] = useState(themes[0]?.id ?? "");
+  const [phase, setPhase] = useState<"day" | "night">("day");
+  const [previewPose, setPreviewPose] = useState<string>("idle");
 
   const items = category === "ship" ? shipItems : rocketItems;
   const filtered = useMemo(() => items.filter(i => i.name.includes(query.trim())), [items, query]);
@@ -75,7 +79,7 @@ export function ArtworkStudio() {
     window.dispatchEvent(new Event(ARTWORK_UPDATED));
   };
 
-  const switchCat = (c: "ship" | "rocket") => { setCategory(c); setSelected((c === "ship" ? shipItems : rocketItems)[0]?.key ?? ""); setQuery(""); };
+  const switchCat = (c: "ship" | "rocket") => { setCategory(c); setPreviewPose("idle"); setSelected((c === "ship" ? shipItems : rocketItems)[0]?.key ?? ""); setQuery(""); };
 
   if (!item) return <p role="status">لا توجد عناصر متاحة.</p>;
 
@@ -96,6 +100,26 @@ export function ArtworkStudio() {
         </Button>;
       })}
     </div>
+    <h3>معاينة على البحر: {item.name}</h3>
+    {(() => {
+      const theme = themes.find(t => t.id === bgId) ?? themes[0]!;
+      const rec = poseRecord(previewPose) ?? poseRecord("idle");
+      const actor = (rec && urls[rec.id]) || item.fallback;
+      return <>
+        <div className="studio-stage">
+          <img className="studio-bg" src={theme[phase].poster} alt={theme.name} />
+          {actor && <img className="studio-actor" src={actor} alt={item.name} />}
+          <span className="studio-pose">{poses[category].find(([p]) => p === previewPose)?.[1] ?? "عادية"} · {theme.name}</span>
+        </div>
+        <div className="studio-poses" role="group" aria-label="وضعية المعاينة">
+          {poses[category].map(([p, l]) => <button type="button" key={p} className={previewPose === p ? "active" : ""} onClick={() => setPreviewPose(p)}>{l}</button>)}
+          <button type="button" className={phase === "night" ? "active" : ""} onClick={() => setPhase(phase === "day" ? "night" : "day")}>{phase === "day" ? "نهار" : "ليل"}</button>
+        </div>
+        <div className="studio-bgs" role="group" aria-label="تغيير الخلفية">
+          {themes.map(t => <button type="button" key={t.id} title={t.name} aria-label={t.name} className={t.id === bgId ? "active" : ""} onClick={() => setBgId(t.id)}><img src={t[phase].poster} alt="" /></button>)}
+        </div>
+      </>;
+    })()}
     <h3>وضعيات: {item.name}</h3>
     <input ref={fileRef} type="file" accept="image/png" hidden onChange={e => { const f = e.target.files?.[0]; e.target.value = ""; if (f) void upload(f); }} />
     <div className="art-library" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(140px,1fr))", gap: 10 }}>

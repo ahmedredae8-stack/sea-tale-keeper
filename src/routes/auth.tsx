@@ -8,15 +8,15 @@ import { currentPhase, defaultTheme, getScene } from "@/lib/themes";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "دخول القبطان — خليج الجزيرة" },
+      { title: "دخول القبطان — عرش البحار" },
       {
         name: "description",
-        content: "سجّل دخولك باسم قبطان وكلمة مرور للانضمام إلى دردشة خليج الجزيرة وقائمة الأصدقاء.",
+        content: "سجّل دخولك باسم قبطان وكلمة مرور للانضمام إلى دردشة عرش البحار وقائمة الأصدقاء.",
       },
-      { property: "og:title", content: "دخول القبطان — خليج الجزيرة" },
+      { property: "og:title", content: "دخول القبطان — عرش البحار" },
       {
         property: "og:description",
-        content: "أنشئ حساب قبطانك وابدأ الإبحار في خليج الجزيرة.",
+        content: "أنشئ حساب قبطانك وابدأ الإبحار في عرش البحار.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

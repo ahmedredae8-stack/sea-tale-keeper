@@ -12,10 +12,10 @@ import { playSfx } from "@/lib/sound";
 export const Route = createFileRoute("/shipyard")({
   head: () => ({
     meta: [
-      { title: "مصنع السفن — Island Bay" },
+      { title: "مصنع السفن — عرش البحار" },
       { name: "description", content: "اشترِ وطوّر سفنك: أرسلها للميناء أو للإبحار أو اختر طاقمها." },
-      { property: "og:title", content: "مصنع السفن — Island Bay" },
-      { property: "og:description", content: "كتالوج السفن والترقيات وإدارة الطواقم داخل خليج الجزيرة." },
+      { property: "og:title", content: "مصنع السفن — عرش البحار" },
+      { property: "og:description", content: "كتالوج السفن والترقيات وإدارة الطواقم داخل عرش البحار." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

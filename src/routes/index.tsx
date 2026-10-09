@@ -38,13 +38,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "خليج الجزيرة — Island Bay" },
+      { title: "عرش البحار — Throne of Seas" },
       {
         name: "description",
         content:
           "خليج حي بخلفيات فيديو متحركة ودورة نهار وليل، مع سوق السمك وسوق السفن وشاشة تداول كاملة.",
       },
-      { property: "og:title", content: "خليج الجزيرة — Island Bay" },
+      { property: "og:title", content: "عرش البحار — Throne of Seas" },
       {
         property: "og:description",
         content:
