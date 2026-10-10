@@ -9,6 +9,7 @@
 - [x] Verify the game at desktop and phone widths, including calibration dragging and dock interactions.
 
 ## Existing follow-up work
+- [x] Hybrid visual identity applied to sheets, HUD, dock, intro, studio
 - [ ] Rebuild the admin studio around the actual ship catalog, pose artwork, and editable store pricing.
 - [ ] Make admin ship and rocket artwork uploads persist and appear in the store and live game.
 - [ ] Restore every island/ocean background from assets owned by this project.

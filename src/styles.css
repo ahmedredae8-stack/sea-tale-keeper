@@ -2436,3 +2436,94 @@
 .studio-poses { display: flex; gap: 0.35rem; flex-wrap: wrap; }
 .studio-poses button { border-radius: 99px; padding: 0.25rem 0.7rem; font-size: 0.75rem; border: 1px solid var(--tos-line); background: oklch(1 0 0 / 0.04); color: var(--tos-subtle); }
 .studio-poses button.active { background: var(--tos-gold); color: var(--tos-abyss); }
+
+/* ═══ Hybrid identity v2 — Supercell punch + crystal glow + neo-ocean HUD ═══ */
+:root {
+  --tos-abyss: oklch(0.17 0.07 265);
+  --tos-deep: oklch(0.24 0.1 262);
+  --tos-glass: oklch(0.22 0.09 262 / 0.82);
+  --tos-line: oklch(0.82 0.14 200 / 0.45);
+  --tos-gold: oklch(0.87 0.17 90);
+  --tos-gold-deep: oklch(0.7 0.17 60);
+  --tos-aqua: oklch(0.83 0.15 200);
+  --tos-violet: oklch(0.66 0.22 300);
+  --tos-lime: oklch(0.85 0.2 135);
+  --tos-text: oklch(0.98 0.01 240);
+  --tos-subtle: oklch(0.82 0.05 240);
+  --tos-display: "Lalezar", "Baloo Bhaijaan 2", system-ui, sans-serif;
+  --tos-body: "Baloo Bhaijaan 2", system-ui, sans-serif;
+  --tos-sheet-max: 72%;
+}
+.win-frame, .win-lg, .win-xl, .royal-hud, .game-dock { font-family: var(--tos-body); }
+.win-title h2, .intro-title, .royal-plate-name, .royal-value { font-family: var(--tos-display) !important; letter-spacing: 0.01em; }
+
+/* Sheets: thick cartoon rim + crystal glow */
+.win-frame, .win-lg, .win-xl {
+  border: 3px solid var(--tos-aqua) !important;
+  border-bottom: 0 !important;
+  border-radius: 28px 28px 0 0 !important;
+  background:
+    radial-gradient(90% 50% at 15% 0%, oklch(0.66 0.22 300 / 0.35), transparent 60%),
+    radial-gradient(90% 50% at 90% 0%, oklch(0.83 0.15 200 / 0.3), transparent 60%),
+    linear-gradient(180deg, var(--tos-deep), var(--tos-abyss)) !important;
+  box-shadow: 0 -10px 0 oklch(0.12 0.06 265 / 0.6), 0 -20px 60px oklch(0.83 0.15 200 / 0.25), inset 0 2px 0 oklch(1 0 0 / 0.25) !important;
+  animation: tosSheetPop 460ms cubic-bezier(0.34, 1.56, 0.64, 1) both !important;
+}
+@keyframes tosSheetPop { from { transform: translateY(100%); } to { transform: none; } }
+.win-frame::before { width: 3.6rem; height: 0.42rem; background: linear-gradient(90deg, var(--tos-aqua), var(--tos-violet)); box-shadow: 0 0 10px var(--tos-aqua); }
+.win-title h2 { color: var(--tos-gold) !important; font-size: 1.45rem !important; text-shadow: 0 3px 0 oklch(0.3 0.12 50), 0 0 18px oklch(0.87 0.17 90 / 0.45) !important; }
+.win-close {
+  border-radius: 999px !important; border: 3px solid oklch(0.35 0.15 25) !important;
+  background: linear-gradient(180deg, oklch(0.72 0.21 25), oklch(0.58 0.22 25)) !important;
+  box-shadow: 0 4px 0 oklch(0.35 0.15 25) !important; color: var(--tos-text) !important;
+  transition: transform 120ms, box-shadow 120ms;
+}
+.win-close:active { transform: translateY(3px); box-shadow: 0 1px 0 oklch(0.35 0.15 25) !important; }
+
+/* Chunky 3D pill tabs */
+.win-embed .dock-tab {
+  height: 2.5rem; border: 2px solid oklch(0.12 0.06 265); border-radius: 999px;
+  background: linear-gradient(180deg, oklch(0.36 0.1 262), oklch(0.27 0.09 262));
+  color: var(--tos-text); font-weight: 700;
+  box-shadow: 0 4px 0 oklch(0.12 0.06 265), inset 0 1px 0 oklch(1 0 0 / 0.2);
+  transition: transform 120ms, box-shadow 120ms;
+}
+.win-embed .dock-tab:active { transform: translateY(3px); box-shadow: 0 1px 0 oklch(0.12 0.06 265); }
+.win-embed .dock-tab.active {
+  background: linear-gradient(180deg, var(--tos-gold), var(--tos-gold-deep)); color: oklch(0.22 0.08 50);
+  border-color: oklch(0.42 0.13 55); box-shadow: 0 4px 0 oklch(0.42 0.13 55), 0 0 16px oklch(0.87 0.17 90 / 0.5);
+}
+.win-embed .ranking-list li, .win-embed .inventory-world {
+  border-radius: 18px; border: 2px solid oklch(0.83 0.15 200 / 0.3);
+  background: linear-gradient(180deg, oklch(0.32 0.1 262 / 0.8), oklch(0.24 0.09 262 / 0.8));
+  box-shadow: 0 4px 0 oklch(0.12 0.06 265 / 0.8);
+}
+
+/* Top HUD: neon glass capsules */
+.royal-capsule, .royal-plate, .royal-tile {
+  border: 2px solid var(--tos-aqua) !important; border-radius: 999px !important;
+  background: linear-gradient(180deg, oklch(0.3 0.1 262 / 0.9), oklch(0.2 0.08 265 / 0.9)) !important;
+  box-shadow: 0 3px 0 oklch(0.12 0.06 265), 0 0 14px oklch(0.83 0.15 200 / 0.35) !important;
+  backdrop-filter: blur(8px);
+}
+.royal-plate, .royal-tile { border-radius: 18px !important; }
+.royal-value, .royal-plate-name { color: var(--tos-text) !important; text-shadow: 0 2px 0 oklch(0.12 0.06 265) !important; }
+.royal-plus { background: linear-gradient(180deg, var(--tos-lime), oklch(0.65 0.2 140)) !important; border-radius: 999px !important; color: oklch(0.2 0.08 140) !important; }
+.royal-xp { background: oklch(0.12 0.06 265) !important; border-radius: 999px !important; overflow: hidden; }
+.royal-xp > * { background: linear-gradient(90deg, var(--tos-aqua), var(--tos-violet)) !important; }
+
+/* Bottom dock: crystal tray with bouncy buttons */
+.game-dock {
+  background: linear-gradient(180deg, oklch(0.26 0.1 262 / 0.85), oklch(0.16 0.07 265 / 0.95)) !important;
+  border-top: 3px solid var(--tos-aqua) !important; border-radius: 26px 26px 0 0 !important;
+  box-shadow: 0 -6px 30px oklch(0.83 0.15 200 / 0.25) !important; backdrop-filter: blur(10px);
+}
+.game-dock-button { border-radius: 20px !important; transition: transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 160ms; }
+.game-dock-button:hover { transform: translateY(-4px) scale(1.06); filter: drop-shadow(0 0 10px oklch(0.83 0.15 200 / 0.7)); }
+.game-dock-button:active { transform: translateY(2px) scale(0.95); }
+
+/* Intro + studio accents */
+.intro-title-accent { color: var(--tos-gold); text-shadow: 0 4px 0 oklch(0.4 0.14 55), 0 0 24px oklch(0.87 0.17 90 / 0.6); }
+.studio-stage { border: 3px solid var(--tos-aqua); border-radius: 22px; box-shadow: 0 5px 0 oklch(0.12 0.06 265); }
+.studio-poses button.active, .studio-bgs button.active { border-color: var(--tos-gold); background: var(--tos-gold); color: oklch(0.22 0.08 50); }
+@media (prefers-reduced-motion: reduce) { .game-dock-button, .win-frame { animation: none !important; transition: none; } }
