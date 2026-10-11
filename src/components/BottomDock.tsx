@@ -1,23 +1,23 @@
 import { Button } from "@/components/ui/button";
-import dockChat from "@/assets/dock/chat.png.asset.json";
-import dockStats from "@/assets/dock/stats.png.asset.json";
-import dockBag from "@/assets/dock/bag.png.asset.json";
-import dockStore from "@/assets/dock/store.png.asset.json";
-import dockQuests from "@/assets/dock/quests.png.asset.json";
-import dockBattle from "@/assets/dock/battle.png.asset.json";
-import dockTribe from "@/assets/dock/tribe.png.asset.json";
+import dockChat from "@/assets/dock2/chat.png";
+import dockStats from "@/assets/dock2/stats.png";
+import dockBag from "@/assets/dock2/bag.png";
+import dockStore from "@/assets/dock2/store.png";
+import dockQuests from "@/assets/dock2/quests.png";
+import dockBattle from "@/assets/dock2/battle.png";
+import dockTribe from "@/assets/dock2/tribe.png";
 import { playSfx } from "@/lib/sound";
 
 export type DockAction = "chat" | "stats" | "bag" | "store" | "quests" | "battle" | "tribe";
 
 const items: { id: DockAction; label: string; image: string }[] = [
-  { id: "chat", label: "الدردشة", image: dockChat.url },
-  { id: "stats", label: "الترتيب", image: dockStats.url },
-  { id: "bag", label: "مخزن العتاد", image: dockBag.url },
-  { id: "store", label: "المتجر", image: dockStore.url },
-  { id: "quests", label: "التنبيهات", image: dockQuests.url },
-  { id: "battle", label: "الأعداء", image: dockBattle.url },
-  { id: "tribe", label: "القبيلة", image: dockTribe.url },
+  { id: "chat", label: "الدردشة", image: dockChat },
+  { id: "stats", label: "الترتيب", image: dockStats },
+  { id: "bag", label: "مخزن العتاد", image: dockBag },
+  { id: "store", label: "المتجر", image: dockStore },
+  { id: "quests", label: "التنبيهات", image: dockQuests },
+  { id: "battle", label: "الأعداء", image: dockBattle },
+  { id: "tribe", label: "القبيلة", image: dockTribe },
 ];
 
 export function BottomDock({ onAction }: { onAction: (action: DockAction) => void }) {
@@ -37,7 +37,7 @@ export function BottomDock({ onAction }: { onAction: (action: DockAction) => voi
                 onAction(item.id);
               }}
             >
-              <img src={item.image} alt="" width={256} height={264} draggable={false} />
+              <img src={item.image} alt="" width={512} height={512} draggable={false} />
             </Button>
           </li>
         ))}
