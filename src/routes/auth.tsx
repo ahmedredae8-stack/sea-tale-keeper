@@ -36,7 +36,7 @@ function AuthPage() {
 
   return (
     <main className="auth-stage bg-[oklch(0.12_0.04_250)] text-white">
-      <video className="auth-scene" src={scene.video} poster={scene.poster} autoPlay loop muted playsInline />
+      {scene.video ? <video className="auth-scene" src={scene.video} poster={scene.poster} autoPlay loop muted playsInline /> : <img className="auth-scene" src={scene.poster} alt="" />}
       {loading ? (
         <div className="relative z-10 grid place-items-center">
           <Loader2 className="h-7 w-7 animate-spin text-[var(--gold)]" />

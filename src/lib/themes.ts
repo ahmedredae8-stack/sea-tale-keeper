@@ -1,31 +1,5 @@
-import bayNightVid from "@/assets/scenes/bay-night.mp4.asset.json";
-import bayNightImg from "@/assets/scenes/bay-night.jpg.asset.json";
-import bayDayVid from "@/assets/scenes/bay-day.mp4.asset.json";
-import bayDayImg from "@/assets/scenes/bay-day.jpg.asset.json";
-import bayBurnedVid from "@/assets/scenes/bay-burned.mp4.asset.json";
-import bayBurnedImg from "@/assets/scenes/bay-burned.jpg.asset.json";
-import springDayVid from "@/assets/scenes/spring-day.mp4.asset.json";
-import springDayImg from "@/assets/scenes/spring-day.jpg.asset.json";
-import springNightVid from "@/assets/scenes/spring-night.mp4.asset.json";
-import springNightImg from "@/assets/scenes/spring-night.jpg.asset.json";
-import winterDayVid from "@/assets/scenes/winter-day.mp4.asset.json";
-import winterDayImg from "@/assets/scenes/winter-day.jpg.asset.json";
-import winterNightVid from "@/assets/scenes/winter-night.mp4.asset.json";
-import winterNightImg from "@/assets/scenes/winter-night.jpg.asset.json";
-import winterBurnedVid from "@/assets/scenes/winter-burned.mp4.asset.json";
-import winterBurnedImg from "@/assets/scenes/winter-burned.jpg.asset.json";
-import wallDayVid from "@/assets/scenes/wall-day.mp4.asset.json";
-import wallDayImg from "@/assets/scenes/wall-day.jpg.asset.json";
-import wallNightVid from "@/assets/scenes/wall-night.mp4.asset.json";
-import wallNightImg from "@/assets/scenes/wall-night.jpg.asset.json";
-import wallBurnedVid from "@/assets/scenes/wall-burned.mp4.asset.json";
-import wallBurnedImg from "@/assets/scenes/wall-burned.jpg.asset.json";
-import eiffelDayVid from "@/assets/scenes/eiffel-day.mp4.asset.json";
-import eiffelDayImg from "@/assets/scenes/eiffel-day.jpg.asset.json";
-import eiffelNightVid from "@/assets/scenes/eiffel-night.mp4.asset.json";
-import eiffelNightImg from "@/assets/scenes/eiffel-night.jpg.asset.json";
-import eiffelBurnedVid from "@/assets/scenes/eiffel-burned.mp4.asset.json";
-import eiffelBurnedImg from "@/assets/scenes/eiffel-burned.jpg.asset.json";
+
+import throneCoastImg from "@/assets/scenes/throne-coast.jpg.asset.json";
 
 /** Scene media is owned by this project's asset storage. */
 const CDN_ORIGIN = "https://sea-tales-backend-buddy.lovable.app";
@@ -55,43 +29,11 @@ export type Theme = {
 
 export const themes: Theme[] = [
   {
-    id: "spring",
-    name: "وادي الربيع",
-    day: { video: cdn(springDayVid.url), poster: cdn(springDayImg.url) },
-    night: { video: cdn(springNightVid.url), poster: cdn(springNightImg.url) },
-    ambient: { day: "spring", night: "night" },
-  },
-  {
-    id: "bay",
-    name: "الخليج الأساسي",
-    day: { video: cdn(bayDayVid.url), poster: cdn(bayDayImg.url) },
-    night: { video: cdn(bayNightVid.url), poster: cdn(bayNightImg.url) },
-    burned: { video: cdn(bayBurnedVid.url), poster: cdn(bayBurnedImg.url) },
+    id: "throne-coast",
+    name: "ساحل العرش",
+    day: { video: "", poster: throneCoastImg.url },
+    night: { video: "", poster: throneCoastImg.url },
     ambient: { day: "waves", night: "night" },
-  },
-  {
-    id: "winter",
-    name: "الخليج الثلجي",
-    day: { video: cdn(winterDayVid.url), poster: cdn(winterDayImg.url) },
-    night: { video: cdn(winterNightVid.url), poster: cdn(winterNightImg.url) },
-    burned: { video: cdn(winterBurnedVid.url), poster: cdn(winterBurnedImg.url) },
-    ambient: { day: "winter", night: "winter" },
-  },
-  {
-    id: "wall",
-    name: "سور الصين العظيم",
-    day: { video: cdn(wallDayVid.url), poster: cdn(wallDayImg.url) },
-    night: { video: cdn(wallNightVid.url), poster: cdn(wallNightImg.url) },
-    burned: { video: cdn(wallBurnedVid.url), poster: cdn(wallBurnedImg.url) },
-    ambient: { day: "wall", night: "wall" },
-  },
-  {
-    id: "eiffel",
-    name: "برج إيفل",
-    day: { video: cdn(eiffelDayVid.url), poster: cdn(eiffelDayImg.url) },
-    night: { video: cdn(eiffelNightVid.url), poster: cdn(eiffelNightImg.url) },
-    burned: { video: cdn(eiffelBurnedVid.url), poster: cdn(eiffelBurnedImg.url) },
-    ambient: { day: "city", night: "city" },
   },
 ];
 
@@ -123,7 +65,7 @@ export function msUntilNextPhase(now: Date | number = Date.now()): number {
 }
 
 export function phaseLabel(p: Phase) {
-  return p === "day" ? "النهار" : "الليل";
+  return p === "day" ? "ضوء الشمس" : "ضوء القمر";
 }
 
 /** "٣ س ٢٤ د" style countdown to the next flip. */

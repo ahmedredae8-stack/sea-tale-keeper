@@ -113,7 +113,7 @@ export function ArtworkStudio() {
         </div>
         <div className="studio-poses" role="group" aria-label="وضعية المعاينة">
           {poses[category].map(([p, l]) => <button type="button" key={p} className={previewPose === p ? "active" : ""} onClick={() => setPreviewPose(p)}>{l}</button>)}
-          <button type="button" className={phase === "night" ? "active" : ""} onClick={() => setPhase(phase === "day" ? "night" : "day")}>{phase === "day" ? "نهار" : "ليل"}</button>
+          <button type="button" className={phase === "night" ? "active" : ""} onClick={() => setPhase(phase === "day" ? "night" : "day")}>{phase === "day" ? "☀ شمس" : "☾ قمر"}</button>
         </div>
         <div className="studio-bgs" role="group" aria-label="تغيير الخلفية">
           {themes.map(t => <button type="button" key={t.id} title={t.name} aria-label={t.name} className={t.id === bgId ? "active" : ""} onClick={() => setBgId(t.id)}><img src={t[phase].poster} alt="" /></button>)}
