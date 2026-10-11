@@ -68,9 +68,8 @@ export function IntroLoader({ onDone }: { onDone: () => void }) {
       <div className="intro-veil" />
 
       <div className="intro-content">
-        <h1 className="intro-title">
-          <span>عرش</span>
-          <span className="intro-title-accent">البحار</span>
+        <h1 className="intro-title" dir="rtl" style={{ flexDirection: "row" }}>
+          <span>عرش <span className="intro-title-accent">البحار</span></span>
         </h1>
         <p className="intro-sub">THRONE OF SEAS — من يحكم الموج يحكم العالم</p>
 
