@@ -2,9 +2,10 @@ import { CaptainAvatar, nameSeed } from "@/components/GameSprite";
 import { Crown, Gift, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const coinArt = { url: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/906f37c0-d530-4e50-a3ce-00deaaf40a02/coin.png" };
-const gemArt = { url: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/81b9318d-8399-478f-bd28-abec7665a1a6/gem.png" };
-const fishArt = { url: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/d40f7c1c-8c7f-47ec-89a0-120eaa992bde/fish-tuna.png" };
+import coinImg from "@/assets/dock2/coin.png";
+import rubyImg from "@/assets/dock2/ruby.png";
+import diamondImg from "@/assets/dock2/diamond.png";
+import fishImg from "@/assets/dock2/fish.png";
 
 type Props = {
   name: string;
@@ -42,9 +43,9 @@ export function TopHud({
   const fmt = (n: number) => n.toLocaleString("en-US");
 
   const capsules = [
-    { key: "coins" as const, tone: "gold", value: fmt(coins), label: "الذهب", art: coinArt.url },
-    { key: "rubies" as const, tone: "ruby", value: fmt(rubies), label: "الياقوت", art: gemArt.url },
-    { key: "diamonds" as const, tone: "sapphire", value: fmt(diamonds), label: "الألماس", art: gemArt.url },
+    { key: "coins" as const, tone: "gold", value: fmt(coins), label: "الذهب", art: coinImg },
+    { key: "rubies" as const, tone: "ruby", value: fmt(rubies), label: "الياقوت", art: rubyImg },
+    { key: "diamonds" as const, tone: "sapphire", value: fmt(diamonds), label: "الألماس", art: diamondImg },
   ];
 
   return (
@@ -72,7 +73,7 @@ export function TopHud({
           </Button>
         ))}
         <div className="royal-capsule royal-capsule-fish">
-          <img className="royal-icon" src={fishArt.url} alt="" aria-hidden="true" />
+          <img className="royal-icon" src={fishImg} alt="" aria-hidden="true" />
           <span className="royal-fish-stack">
             <span className="royal-value">
               {fishFound}/{fishTotal}

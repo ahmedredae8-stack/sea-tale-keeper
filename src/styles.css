@@ -2527,3 +2527,70 @@
 .studio-stage { border: 3px solid var(--tos-aqua); border-radius: 22px; box-shadow: 0 5px 0 oklch(0.12 0.06 265); }
 .studio-poses button.active, .studio-bgs button.active { border-color: var(--tos-gold); background: var(--tos-gold); color: oklch(0.22 0.08 50); }
 @media (prefers-reduced-motion: reduce) { .game-dock-button, .win-frame { animation: none !important; transition: none; } }
+
+/* ═══ v3 — Refined premium interiors (mature, less toy-like) ═══ */
+:root {
+  --tos-display: "Reem Kufi", "Cairo", system-ui, sans-serif;
+  --tos-body: "Cairo", system-ui, sans-serif;
+  --tos-panel: oklch(1 0 0 / 0.045);
+  --tos-panel-hi: oklch(1 0 0 / 0.08);
+  --tos-hair: oklch(0.85 0.1 85 / 0.22);
+}
+.win-frame, .win-lg, .win-xl, .store-shell, .royal-hud, .game-dock, .art-studio { font-family: var(--tos-body) !important; }
+.win-title h2, .store-head h2, .art-studio-head h2, .royal-plate-name, .royal-value, .intro-title { font-family: var(--tos-display) !important; font-weight: 700 !important; }
+.win-frame, .win-lg, .win-xl {
+  border: 1px solid var(--tos-hair) !important;
+  border-bottom: 0 !important;
+  border-radius: 20px 20px 0 0 !important;
+  box-shadow: 0 -18px 50px oklch(0.05 0.03 260 / 0.6), inset 0 1px 0 oklch(1 0 0 / 0.08) !important;
+  background: linear-gradient(180deg, oklch(0.2 0.04 255 / 0.97), oklch(0.13 0.03 258 / 0.98)) !important;
+}
+.win-frame::before { width: 2.6rem; height: 0.25rem; background: var(--tos-hair); box-shadow: none; }
+.win-title h2 { color: var(--tos-gold) !important; font-size: 1.15rem !important; text-shadow: none !important; letter-spacing: 0.02em; }
+.win-close, .win-frame [aria-label^="إغلاق"] { box-shadow: none !important; border: 1px solid var(--tos-hair) !important; background: var(--tos-panel) !important; border-radius: 10px !important; }
+.win-embed .dock-tab {
+  height: 2.1rem; border-radius: 10px; border: 1px solid transparent; background: var(--tos-panel);
+  color: var(--tos-subtle); font-weight: 600; box-shadow: none !important; transform: none !important;
+}
+.win-embed .dock-tab.active { background: var(--tos-panel-hi); color: var(--tos-gold); border-color: var(--tos-hair); box-shadow: inset 0 -2px 0 var(--tos-gold) !important; }
+
+/* Store as bottom sheet, same identity */
+.game-modal { align-items: end !important; place-items: end center !important; padding: 0 !important; background: oklch(0.05 0.02 260 / 0.55) !important; backdrop-filter: blur(3px); }
+.store-shell {
+  width: 100% !important; max-width: none !important; height: var(--tos-sheet-max); max-height: var(--tos-sheet-max) !important;
+  border: 1px solid var(--tos-hair) !important; border-bottom: 0 !important; border-radius: 20px 20px 0 0 !important;
+  background: linear-gradient(180deg, oklch(0.2 0.04 255 / 0.97), oklch(0.13 0.03 258 / 0.98)) !important;
+  box-shadow: 0 -18px 50px oklch(0.05 0.03 260 / 0.6) !important; color: var(--tos-text);
+  animation: tosSheetUp 0.32s cubic-bezier(.2,.8,.2,1);
+}
+.store-head { background: transparent !important; border-bottom: 1px solid var(--tos-hair) !important; }
+.store-head h2 { color: var(--tos-gold) !important; text-shadow: none !important; font-size: 1.15rem; }
+.store-kicker { color: var(--tos-subtle) !important; }
+.store-close { color: var(--tos-text) !important; border: 1px solid var(--tos-hair); border-radius: 10px; background: var(--tos-panel); }
+.store-tabs { flex-wrap: nowrap; overflow-x: auto; }
+.store-tab { border: 1px solid transparent !important; border-radius: 10px !important; background: var(--tos-panel) !important; color: var(--tos-subtle) !important; box-shadow: none !important; font-weight: 600; }
+.store-tab-active { background: var(--tos-panel-hi) !important; color: var(--tos-gold) !important; border-color: var(--tos-hair) !important; box-shadow: inset 0 -2px 0 var(--tos-gold) !important; }
+.store-banner { border: 0 !important; background: none !important; color: var(--tos-subtle) !important; text-align: start; font-size: 0.75rem; letter-spacing: 0.08em; padding: 0 0.1rem !important; }
+.store-product { border: 1px solid var(--tos-hair) !important; border-radius: 14px !important; background: var(--tos-panel) !important; box-shadow: none !important; color: var(--tos-text) !important; }
+.store-product:hover { background: var(--tos-panel-hi) !important; }
+.store-product.selected { border-color: var(--tos-gold) !important; box-shadow: 0 0 0 1px var(--tos-gold), 0 8px 24px oklch(0.8 0.13 85 / 0.15) !important; }
+.product-copy small { color: var(--tos-subtle) !important; }
+.buy-bar { border: 1px solid var(--tos-hair) !important; border-radius: 14px !important; background: oklch(0.1 0.03 258 / 0.9) !important; box-shadow: none !important; }
+.product-buy { border-radius: 10px !important; background: linear-gradient(180deg, var(--tos-gold), var(--tos-gold-deep)) !important; color: oklch(0.2 0.05 60) !important; box-shadow: none !important; font-weight: 700; }
+
+/* Top HUD & dock — calmer */
+.royal-capsule { border-width: 1px !important; border-color: var(--tos-hair) !important; background: oklch(0.12 0.03 258 / 0.78) !important; box-shadow: 0 4px 14px oklch(0.05 0.03 260 / 0.45) !important; backdrop-filter: blur(6px); }
+.royal-value, .royal-plate-name { text-shadow: none !important; }
+.royal-icon { filter: drop-shadow(0 2px 4px oklch(0 0 0 / 0.5)); }
+.game-dock-button img { filter: drop-shadow(0 4px 8px oklch(0 0 0 / 0.55)); }
+
+/* Studio */
+.art-studio { color: var(--tos-text); }
+.art-studio h3 { font-family: var(--tos-display); font-weight: 600; color: var(--tos-gold); font-size: 0.95rem; margin-top: 0.9rem; }
+.art-mode button, .studio-poses button { border-radius: 10px !important; border: 1px solid var(--tos-hair) !important; background: var(--tos-panel) !important; color: var(--tos-subtle) !important; box-shadow: none !important; }
+.art-mode button.active, .studio-poses button.active { color: var(--tos-gold) !important; background: var(--tos-panel-hi) !important; box-shadow: inset 0 -2px 0 var(--tos-gold) !important; }
+.art-record { border: 1px solid var(--tos-hair) !important; border-radius: 14px !important; background: var(--tos-panel) !important; box-shadow: none !important; }
+.art-record.active { border-color: var(--tos-gold) !important; }
+.studio-stage { border: 1px solid var(--tos-hair); border-radius: 16px; box-shadow: 0 12px 30px oklch(0.05 0.03 260 / 0.5); }
+.studio-bgs button { border-radius: 10px; }
+.studio-bgs button.active { background: none; border-color: var(--tos-gold); }
