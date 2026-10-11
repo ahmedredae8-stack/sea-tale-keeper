@@ -1,15 +1,6 @@
 
 import throneCoastImg from "@/assets/scenes/throne-coast.jpg.asset.json";
 
-/** Scene media is owned by this project's asset storage. */
-const CDN_ORIGIN = "https://sea-tales-backend-buddy.lovable.app";
-
-function cdn(url: string) {
-  if (!url.startsWith("/__l5e/")) return url;
-  if (typeof window !== "undefined" && window.location.hostname.endsWith("lovable.app")) return url;
-  return CDN_ORIGIN + url;
-}
-
 export type Phase = "day" | "night";
 
 export type Scene = { video: string; poster: string };
