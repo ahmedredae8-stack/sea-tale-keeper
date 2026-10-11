@@ -137,7 +137,7 @@ function Index() {
       <main className="game-stage relative overflow-hidden bg-[oklch(0.15_0.04_250)]">
       {/* Living scene: a looping video shot of the bay, cropped to always cover */}
       <div className="scene-stage">
-        <video
+        {scene.video ? <video
           key={scene.video}
           className="scene-video"
           src={scene.video}
@@ -147,7 +147,7 @@ function Index() {
           muted
           playsInline
           preload="auto"
-        />
+        /> : <img className="scene-video" src={scene.poster} alt="" />}
 
         {hotspots.map((h) => (
           <button
