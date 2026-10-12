@@ -3,9 +3,9 @@ import { supabase } from "@/integrations/supabase/client";
 
 export type ArtworkPose = {
   id: string;
-  category: "ship" | "rocket";
+  category: "ship" | "rocket" | "background";
   subject: string;
-  pose: "idle" | "cast" | "submerged" | "haul" | "flight" | "explosion" | "fire" | "smoke" | "fade";
+  pose: "idle" | "cast" | "submerged" | "haul" | "flight" | "explosion" | "fire" | "smoke" | "fade" | "day" | "night";
   image_path: string;
   created_by: string;
 };

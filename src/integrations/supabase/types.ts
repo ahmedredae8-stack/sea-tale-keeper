@@ -47,6 +47,30 @@ export type Database = {
         }
         Relationships: []
       }
+      catches: {
+        Row: {
+          created_at: string
+          fish_id: string
+          id: string
+          qty: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          fish_id: string
+          id?: string
+          qty?: number
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          fish_id?: string
+          id?: string
+          qty?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       fleet_layout: {
         Row: {
           created_at: string
@@ -179,6 +203,33 @@ export type Database = {
           theme_id?: string
           user_id?: string | null
           username_norm?: string | null
+        }
+        Relationships: []
+      }
+      ship_overrides: {
+        Row: {
+          description: string | null
+          hidden: boolean
+          name: string | null
+          price: number | null
+          product_id: string
+          updated_at: string
+        }
+        Insert: {
+          description?: string | null
+          hidden?: boolean
+          name?: string | null
+          price?: number | null
+          product_id: string
+          updated_at?: string
+        }
+        Update: {
+          description?: string | null
+          hidden?: boolean
+          name?: string | null
+          price?: number | null
+          product_id?: string
+          updated_at?: string
         }
         Relationships: []
       }

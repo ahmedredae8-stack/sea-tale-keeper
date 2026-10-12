@@ -16,6 +16,8 @@ import { fmt } from "@/lib/ships";
 import { playSfx } from "@/lib/sound";
 import { useArtworkMap } from "@/lib/artwork";
 import { resolveShipArtwork } from "@/lib/shipArtwork";
+import { FISH, rollHaul, saveHaul } from "@/lib/catches";
+import catchArt from "@/assets/catch-return.jpg";
 
 type ShipState = "docked" | "sailingOut" | "turning" | "casting" | "fishing" | "hauling" | "sailingHome" | "sold";
 type FleetShip = { id: number; state: ShipState };
@@ -61,6 +63,8 @@ export function FishingFleet({ themeId, themeName }: { themeId: string; themeNam
   const catalogId = [1, 2, 5, 6, 7, 10][hullIndex] ?? 1;
   const activeHull = resolveShipArtwork(artwork, catalogId, "idle", bundledHull);
   const timers = useRef<number[]>([]);
+  const [haul, setHaul] = useState<ReturnType<typeof rollHaul> | null>(null);
+  const [haulSaved, setHaulSaved] = useState<boolean | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -104,13 +108,16 @@ export function FishingFleet({ themeId, themeName }: { themeId: string; themeNam
       return;
     }
     if (ship.state === "fishing") {
-      if (reducedMotion) {
+      const landed = () => {
         update(ship.id, "docked");
-        return;
-      }
+        const h = rollHaul();
+        setHaul(h);
+        void saveHaul(h).then((ok) => setHaulSaved(ok));
+      };
+      if (reducedMotion) { landed(); return; }
       update(ship.id, "hauling");
       later(() => update(ship.id, "sailingHome"), 1500);
-      later(() => update(ship.id, "docked"), 3900);
+      later(landed, 3900);
     }
   };
 
@@ -215,6 +222,19 @@ export function FishingFleet({ themeId, themeName }: { themeId: string; themeNam
               <Button variant="destructive" onClick={() => { update(sellFor, "sold"); setSellFor(null); playSfx("click", 0.8); }}>تأكيد البيع</Button>
               <Button variant="secondary" onClick={() => setSellFor(null)}>إلغاء</Button>
             </div>
+          </section>
+        </div>
+      )}
+      {haul && (
+        <div className="fleet-modal" role="dialog" aria-modal="true" aria-label="نتيجة الصيد" onClick={() => setHaul(null)}>
+          <section className="tos-haul" dir="rtl" onClick={(e) => e.stopPropagation()}>
+            <img className="tos-haul-art" src={catchArt} alt="القارب عاد بالصيد إلى الشاطئ" width={1024} height={640} />
+            <h2>عاد القارب بالصيد!</h2>
+            <ul>
+              {haul.map((h) => { const f = FISH.find((x) => x.id === h.id)!; return <li key={h.id}><img src={f.img} alt="" /><strong>{f.name}</strong><span>×{h.qty}</span></li>; })}
+            </ul>
+            <p>{haulSaved === false ? "سجّل دخولك لحفظ صيدك في سوق السمك" : "أُضيف الصيد إلى سوق السمك"}</p>
+            <button type="button" className="tos-btn" onClick={() => setHaul(null)}>استلام</button>
           </section>
         </div>
       )}
