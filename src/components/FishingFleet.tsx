@@ -16,6 +16,8 @@ import { fmt } from "@/lib/ships";
 import { playSfx } from "@/lib/sound";
 import { useArtworkMap } from "@/lib/artwork";
 import { resolveShipArtwork } from "@/lib/shipArtwork";
+import { FISH, rollHaul, saveHaul } from "@/lib/catches";
+import catchArt from "@/assets/catch-return.jpg";
 
 type ShipState = "docked" | "sailingOut" | "turning" | "casting" | "fishing" | "hauling" | "sailingHome" | "sold";
 type FleetShip = { id: number; state: ShipState };
@@ -61,6 +63,8 @@ export function FishingFleet({ themeId, themeName }: { themeId: string; themeNam
   const catalogId = [1, 2, 5, 6, 7, 10][hullIndex] ?? 1;
   const activeHull = resolveShipArtwork(artwork, catalogId, "idle", bundledHull);
   const timers = useRef<number[]>([]);
+  const [haul, setHaul] = useState<ReturnType<typeof rollHaul> | null>(null);
+  const [haulSaved, setHaulSaved] = useState<boolean | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -104,13 +108,16 @@ export function FishingFleet({ themeId, themeName }: { themeId: string; themeNam
       return;
     }
     if (ship.state === "fishing") {
-      if (reducedMotion) {
+      const landed = () => {
         update(ship.id, "docked");
-        return;
-      }
+        const h = rollHaul();
+        setHaul(h);
+        void saveHaul(h).then((ok) => setHaulSaved(ok));
+      };
+      if (reducedMotion) { landed(); return; }
       update(ship.id, "hauling");
       later(() => update(ship.id, "sailingHome"), 1500);
-      later(() => update(ship.id, "docked"), 3900);
+      later(landed, 3900);
     }
   };
 
