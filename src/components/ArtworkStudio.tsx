@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ImagePlus, Rocket, Search, Ship, Trash2, UploadCloud } from "lucide-react";
+import { Eye, EyeOff, ImagePlus, Rocket, Search, Ship, Trash2, UploadCloud } from "lucide-react";
+import { saveOverride, useLiveShips } from "@/lib/shipOverrides";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { ARTWORK_UPDATED, artworkUrl, listArtwork, type ArtworkPose } from "@/lib/artwork";
@@ -135,6 +136,58 @@ export function ArtworkStudio() {
         </div>;
       })}
     </div>
+    {category === "ship" && <ShipTextEditor key={item.key} productId={item.key} />}
+    <BackgroundUploads />
     {status && <p className="art-status" role="status">{status}</p>}
   </section>;
+}
+
+function ShipTextEditor({ productId }: { productId: string }) {
+  const ship = useLiveShips(true).find(s => s.key === productId);
+  const [form, setForm] = useState<{ name: string; description: string; price: string; hidden: boolean } | null>(null);
+  const [msg, setMsg] = useState("");
+  useEffect(() => { if (ship && !form) setForm({ name: ship.name, description: ship.description, price: String(ship.price), hidden: ship.hidden }); }, [ship, form]);
+  if (!ship || !form) return null;
+  const save = async () => {
+    const price = Math.max(0, Math.floor(Number(form.price) || 0));
+    const err = await saveOverride({ product_id: productId, name: form.name.trim().slice(0, 40) || null, description: form.description.trim().slice(0, 200) || null, price, hidden: form.hidden });
+    setMsg(err ? "تعذّر الحفظ — تأكد من صلاحية المشرف" : "تم الحفظ وظهر في المتجر");
+  };
+  return <div className="tos-editor">
+    <h3>نصوص وسعر: {ship.name}</h3>
+    <label>الاسم<input value={form.name} maxLength={40} onChange={e => setForm({ ...form, name: e.target.value })} /></label>
+    <label>الوصف<textarea value={form.description} maxLength={200} onChange={e => setForm({ ...form, description: e.target.value })} /></label>
+    <label>السعر<input inputMode="numeric" value={form.price} onChange={e => setForm({ ...form, price: e.target.value.replace(/\D/g, "") })} /></label>
+    <label className="tos-check"><input type="checkbox" checked={form.hidden} onChange={e => setForm({ ...form, hidden: e.target.checked })} />{form.hidden ? <><EyeOff size={16} /> مخفية عن اللاعبين</> : <><Eye size={16} /> ظاهرة في المتجر</>}</label>
+    <Button onClick={() => void save()}>حفظ</Button>
+    {msg && <small role="status">{msg}</small>}
+  </div>;
+}
+
+function BackgroundUploads() {
+  const [rows, setRows] = useState<{ id: string; url: string }[]>([]);
+  const [msg, setMsg] = useState("");
+  const ref = useRef<HTMLInputElement>(null);
+  const load = async () => {
+    const all = (await listArtwork().catch(() => [])).filter(r => r.category === "background");
+    setRows(await Promise.all(all.map(async r => ({ id: r.id, url: await artworkUrl(r.image_path).catch(() => "") }))));
+  };
+  useEffect(() => { void load(); }, []);
+  const upload = async (file: File) => {
+    if (!/^image\/(png|jpeg|webp)$/.test(file.type) || file.size > 8 * 1024 * 1024) { setMsg("اختر صورة PNG أو JPG حتى 8 ميجابايت"); return; }
+    const { data: auth } = await supabase.auth.getUser();
+    if (!auth.user) { setMsg("سجل دخولك أولاً"); return; }
+    const path = `${auth.user.id}/bg-${crypto.randomUUID()}.${file.type.split("/")[1]}`;
+    const { error } = await supabase.storage.from("game-artwork").upload(path, file, { contentType: file.type });
+    if (error) { setMsg("تعذّر الرفع — صلاحية المشرف مطلوبة"); return; }
+    await supabase.from("artwork_poses").insert({ category: "background", subject: file.name.slice(0, 60), pose: "day", image_path: path, created_by: auth.user.id });
+    setMsg("تم رفع الخلفية. اطلب إضافتها للعبة لتصبح متاحة للجميع."); void load();
+  };
+  return <div className="tos-editor">
+    <h3>رفع خلفيات جديدة</h3>
+    <input ref={ref} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={e => { const f = e.target.files?.[0]; e.target.value = ""; if (f) void upload(f); }} />
+    <Button onClick={() => ref.current?.click()}><UploadCloud /> رفع خلفية</Button>
+    <div className="studio-bgs">{rows.map(r => <img key={r.id} src={r.url} alt="خلفية مرفوعة" />)}</div>
+    {msg && <small role="status">{msg}</small>}
+  </div>;
 }

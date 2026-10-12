@@ -3,84 +3,51 @@ import { useEffect, useRef, useState } from "react";
 import { playSfx } from "@/lib/sound";
 import introArt from "@/assets/intro-throne.jpg";
 
-const TIPS = [
-  "العرش لا يُورَّث… بل يُنتزع",
-  "الكنوز تُقسم بالعدل… أو بالسيف",
-  "راقب الأفق، السفن المعادية قريبة",
-  "رفع الأشرعة… انطلقنا!",
-];
+const STAGES = ["تجهيز الأسطول", "شحن المدافع", "رسم خرائط المحيط", "رفع الراية"];
 
 export function IntroLoader({ onDone }: { onDone: () => void }) {
   const [progress, setProgress] = useState(0);
-  const [tip, setTip] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const started = useRef(false);
 
   useEffect(() => {
     let raf = 0;
     const t0 = performance.now();
-    const total = 1600;
-
+    const total = 2200;
     const loop = (t: number) => {
       const p = Math.min(100, ((t - t0) / total) * 100);
       setProgress(p);
-      setTip(Math.min(TIPS.length - 1, Math.floor((p / 100) * TIPS.length)));
       if (p < 100) raf = requestAnimationFrame(loop);
-      else {
-        setLeaving(true);
-        window.setTimeout(onDone, 420);
-      }
+      else { setLeaving(true); window.setTimeout(onDone, 520); }
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
   }, [onDone]);
 
-  // Browsers block audio before a gesture: play the sting on the first interaction.
   useEffect(() => {
-    const fire = () => {
-      if (started.current) return;
-      started.current = true;
-      playSfx("intro", 0.9);
-    };
+    const fire = () => { if (started.current) return; started.current = true; playSfx("intro", 0.9); };
     fire();
     window.addEventListener("pointerdown", fire, { once: true });
-    window.addEventListener("keydown", fire, { once: true });
-    return () => {
-      window.removeEventListener("pointerdown", fire);
-      window.removeEventListener("keydown", fire);
-    };
+    return () => window.removeEventListener("pointerdown", fire);
   }, []);
 
+  const stage = Math.min(STAGES.length - 1, Math.floor((progress / 100) * STAGES.length));
+
   return (
-    <div
-      className={`intro-screen ${leaving ? "intro-leaving" : ""}`}
-      role="status"
-      aria-live="polite"
-      aria-label="جاري تحميل اللعبة"
-    >
-      <img
-        src={introArt}
-        alt="عرش ذهبي يرتفع من بحر عاصف تحت ضوء القمر"
-        width={1088}
-        height={1920}
-        className="intro-art"
-      />
-      <div className="intro-veil" />
-
-      <div className="intro-content">
-        <h1 className="intro-title" dir="rtl" style={{ flexDirection: "row" }}>
-          <span>عرش <span className="intro-title-accent">البحار</span></span>
-        </h1>
-        <p className="intro-sub">THRONE OF SEAS — من يحكم الموج يحكم العالم</p>
-
-        <div className="intro-bar" aria-hidden="true">
-          <div className="intro-bar-fill" style={{ width: `${progress}%` }}>
-            <span className="intro-bar-shine" />
-          </div>
-        </div>
-        <div className="intro-meta">
-          <span>{TIPS[tip]}</span>
-          <span className="intro-pct">{Math.round(progress)}%</span>
+    <div className={`tos-intro ${leaving ? "out" : ""}`} role="status" aria-live="polite" aria-label="جاري تحميل اللعبة">
+      <img src={introArt} alt="عرش ذهبي يرتفع من بحر عاصف" width={1088} height={1920} className="tos-intro-art" />
+      <div className="tos-intro-rays" aria-hidden="true" />
+      <div className="tos-intro-top" dir="rtl">
+        <span className="tos-intro-badge">الموسم الأول</span>
+        <h1 className="tos-intro-title"><span>عرش</span><b>البحار</b></h1>
+        <p>من يحكم الموج… يحكم العالم</p>
+      </div>
+      <div className="tos-intro-bottom" dir="rtl">
+        <ol className="tos-intro-steps" aria-hidden="true">
+          {STAGES.map((s, i) => <li key={s} className={i < stage ? "done" : i === stage ? "now" : ""}>{s}</li>)}
+        </ol>
+        <div className="tos-intro-ring" style={{ "--p": `${progress * 3.6}deg` } as React.CSSProperties}>
+          <span>{Math.round(progress)}</span>
         </div>
       </div>
     </div>
