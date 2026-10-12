@@ -4,7 +4,8 @@ import { Check, Crown, Gem, Minus, Plus, Shield, ShipWheel, Swords, Users, X } f
 import { Button } from "@/components/ui/button";
 import { GameSprite } from "@/components/GameSprite";
 import { ARMORS, CREWS, GEM_PACKS, WEAPONS } from "@/lib/items";
-import { fleetCatalog, tripLabel } from "@/lib/fleetCatalog";
+import { tripLabel } from "@/lib/fleetCatalog";
+import { useLiveShips } from "@/lib/shipOverrides";
 import { fmt } from "@/lib/ships";
 
 import { currentPhase, phaseLabel, themes } from "@/lib/themes";
@@ -42,22 +43,23 @@ export function GameStore({ activeId, onSelect, onClose }: { activeId: string; o
   ];
 
   const art = useArtworkMap();
+  const liveShips = useLiveShips();
   const products = useMemo<Product[]>(() => {
     if (tab === "weapons") return WEAPONS.map((item, index) => ({ id: item.id, title: item.name, desc: `${item.desc} · قوة تدميرية ${item.power * 1000}`, price: item.price, currency: item.currency, art: art[`${item.id}:idle`] ? <img src={art[`${item.id}:idle`]} alt="" loading="lazy" /> : <GameSprite atlas="weapon" index={index} /> }));
     if (tab === "crew") return CREWS.map((item, index) => ({ id: item.id, title: item.name, desc: `${item.desc} · ${item.hours}H`, price: item.price, currency: item.currency, art: <GameSprite atlas="crew" index={index} /> }));
     if (tab === "armor") return ARMORS.map((item, index) => ({ id: item.id, title: item.name, desc: `${item.desc} · دفاع ${item.defense * 500}`, price: item.price, currency: item.currency, art: <GameSprite atlas="armor" index={index} /> }));
     if (tab === "ships")
-      return fleetCatalog.map((ship) => ({
-        id: `ship-${ship.id}`,
+      return liveShips.map((ship) => ({
+        id: ship.key,
         title: ship.name,
-        desc: `${ship.fish.join(" · ")} · رحلة ${tripLabel(ship.tripSeconds)}${ship.source === "tribe" ? " · من القبيلة" : ""}`,
+        desc: `${ship.description ? ship.description + " · " : ""}${ship.fish.join(" · ")} · رحلة ${tripLabel(ship.tripSeconds)}${ship.source === "tribe" ? " · من القبيلة" : ""}`,
         price: ship.price,
         currency: ship.currency,
-        art: <img src={art[`ship-${ship.id}:idle`] ?? ship.hull} alt="" loading="lazy" />,
+        art: <img className="ship-full" src={art[`${ship.key}:idle`] ?? ship.hull} alt="" loading="lazy" />,
       }));
 
     return [];
-  }, [tab, art]);
+  }, [tab, art, liveShips]);
 
   return (
     <div className="game-modal" role="dialog" aria-modal="true" aria-label="المتجر البحري" onClick={onClose}>
