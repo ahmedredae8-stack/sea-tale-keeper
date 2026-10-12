@@ -225,6 +225,19 @@ export function FishingFleet({ themeId, themeName }: { themeId: string; themeNam
           </section>
         </div>
       )}
+      {haul && (
+        <div className="fleet-modal" role="dialog" aria-modal="true" aria-label="نتيجة الصيد" onClick={() => setHaul(null)}>
+          <section className="tos-haul" dir="rtl" onClick={(e) => e.stopPropagation()}>
+            <img className="tos-haul-art" src={catchArt} alt="القارب عاد بالصيد إلى الشاطئ" width={1024} height={640} />
+            <h2>عاد القارب بالصيد!</h2>
+            <ul>
+              {haul.map((h) => { const f = FISH.find((x) => x.id === h.id)!; return <li key={h.id}><img src={f.img} alt="" /><strong>{f.name}</strong><span>×{h.qty}</span></li>; })}
+            </ul>
+            <p>{haulSaved === false ? "سجّل دخولك لحفظ صيدك في سوق السمك" : "أُضيف الصيد إلى سوق السمك"}</p>
+            <button type="button" className="tos-btn" onClick={() => setHaul(null)}>استلام</button>
+          </section>
+        </div>
+      )}
     </div>
   );
 }
