@@ -22,6 +22,13 @@
       "when": 1791804628665,
       "tag": "0002_migration",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791865850141,
+      "tag": "0003_allow_admin_background_formats",
+      "breakpoints": true
     }
   ]
 }
