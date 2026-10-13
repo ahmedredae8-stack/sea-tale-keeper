@@ -1,4 +1,11 @@
 # Roadmap
+## Current completion request
+- [ ] Finish opening screen with real image preparation, not a fake timer.
+- [ ] Repair external-deployment media and live administrator artwork refresh.
+- [ ] Allow PNG/JPG/WebP background uploads with honest success/error states.
+- [ ] Finish fish market, shipyard, and catch-result presentation.
+- [ ] Differentiate rewards, settings, tribe layouts and controls.
+- [ ] Verify rendering, artwork replacement, and saved catch read-back.
 - [x] Current request: connect developer studio poses to sea boats with live refresh.
 - [x] Current request: move day/night indicator below the upper HUD.
 - [x] Current request: repair and restyle settings, tribe, and messages windows.
