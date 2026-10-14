@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 import { playSfx } from "@/lib/sound";
+import coinIcon from "@/assets/dock2/coin.png";
+import rubyIcon from "@/assets/dock2/ruby.png";
+import diamondIcon from "@/assets/dock2/diamond.png";
 
 const KEY = "ib.daily.v1";
 const DAYS = [
-  { d: 1, icon: "/__l5e/assets-v1/afe90962-2727-41b7-8733-7fd86bc63bf6/coin.png", label: "5,000" },
-  { d: 2, icon: "/__l5e/assets-v1/afe90962-2727-41b7-8733-7fd86bc63bf6/coin.png", label: "10,000" },
-  { d: 3, icon: "/__l5e/assets-v1/a7998f4c-5c5e-48cc-8287-befdc38e3ba7/gem.png", label: "15" },
-  { d: 4, icon: "/__l5e/assets-v1/afe90962-2727-41b7-8733-7fd86bc63bf6/coin.png", label: "25,000" },
-  { d: 5, icon: "/__l5e/assets-v1/a7998f4c-5c5e-48cc-8287-befdc38e3ba7/gem.png", label: "40" },
-  { d: 6, icon: "/__l5e/assets-v1/772930b6-6633-4188-a545-3c2c59c65536/chest.png", label: "صندوق" },
-  { d: 7, icon: "/__l5e/assets-v1/39653550-1f4f-42f0-86c5-d0f656b3b796/cat-ship.png", label: "سفينة" },
+  { d: 1, icon: coinIcon, label: "5,000" },
+  { d: 2, icon: coinIcon, label: "10,000" },
+  { d: 3, icon: rubyIcon, label: "15" },
+  { d: 4, icon: coinIcon, label: "25,000" },
+  { d: 5, icon: diamondIcon, label: "40" },
+  { d: 6, icon: rubyIcon, label: "60" },
+  { d: 7, icon: diamondIcon, label: "الجائزة الكبرى" },
 ];
 
 type Saved = { day: string; streak: number };
@@ -46,41 +49,31 @@ export function DailyReward() {
 
   if (!open) return null;
 
+  const close = (v = 0.6) => { playSfx("click", v); setOpen(false); };
+  const big = DAYS[6]!;
   return (
-    <div className="daily-overlay" role="dialog" aria-label="مكافأة الدخول اليومي">
+    <div className="daily-overlay" role="dialog" aria-label="مكافأة الدخول اليومي" dir="rtl">
       <div className="daily-panel">
-        <button
-          type="button"
-          aria-label="إغلاق"
-          onClick={() => {
-            playSfx("click", 0.6);
-            setOpen(false);
-          }}
-          className="absolute left-3 top-3 rounded-full bg-black/50 p-1.5 text-white/80 transition hover:text-white"
-        >
-          <X className="h-4 w-4" />
-        </button>
-        <h2 className="daily-title">مكافأة الدخول اليومي</h2>
-        <p className="mb-3 text-center text-xs text-white/60">يومك {streak} من 7 — لا تفوّت يومًا!</p>
-        <ul className="grid grid-cols-4 gap-2">
-          {DAYS.map((r) => (
+        <button type="button" aria-label="إغلاق" onClick={() => close()} className="tos-x"><X className="h-4 w-4" /></button>
+        <header className="daily-head">
+          <span className="daily-kicker">سجل الإبحار اليومي</span>
+          <h2 className="daily-title">خزينة العرش</h2>
+          <div className="daily-streak"><b>{streak}</b><span>/ 7 أيام متتالية</span></div>
+        </header>
+        <ol className="daily-track">
+          {DAYS.slice(0, 6).map((r) => (
             <li key={r.d} className={`daily-cell ${r.d < streak ? "daily-cell-past" : ""} ${r.d === streak ? "daily-cell-now" : ""}`}>
-              <span className="text-[10px] font-bold text-white/60">يوم {r.d}</span>
-              <img src={r.icon} alt="" className="h-8 w-8 object-contain" />
-              <span className="text-[11px] font-black text-[var(--gold)]">{r.label}</span>
+              <small>{r.d}</small>
+              <img src={r.icon} alt="" width={40} height={40} />
+              <b>{r.label}</b>
             </li>
           ))}
-        </ul>
-        <button
-          type="button"
-          onClick={() => {
-            playSfx("click", 0.9);
-            setOpen(false);
-          }}
-          className="daily-claim"
-        >
-          استلام
-        </button>
+        </ol>
+        <div className={`daily-grand ${streak === 7 ? "daily-cell-now" : ""}`}>
+          <img src={big.icon} alt="" width={56} height={56} />
+          <div><small>اليوم السابع</small><b>{big.label}</b><span>أكمل الأسبوع لتفتحها</span></div>
+        </div>
+        <button type="button" onClick={() => close(0.9)} className="tos-btn daily-claim">استلام مكافأة اليوم</button>
       </div>
     </div>
   );
