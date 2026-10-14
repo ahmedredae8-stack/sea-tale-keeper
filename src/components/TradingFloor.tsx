@@ -110,7 +110,7 @@ export function TradingFloor({ start = "fish" }: { start?: AssetKind }) {
               setKind("fish");
             }}
           >
-            <img src="https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/8375eb41-2ea8-4351-8b7a-448d60539f87/pin-fish.png" alt="" />
+            <img src="/__l5e/assets-v1/072d9843-716a-41ee-821b-52532ff13d87/pin-fish.png" alt="" />
             سوق السمك
           </button>
           <button
@@ -121,12 +121,12 @@ export function TradingFloor({ start = "fish" }: { start?: AssetKind }) {
               setKind("ship");
             }}
           >
-            <img src="https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/fb9b0fc1-ea0d-4c43-a889-ee8820a084f2/pin-ship.png" alt="" />
+            <img src="/__l5e/assets-v1/dc312d20-0e0c-4ebf-9bc2-ca274d6d0643/pin-ship.png" alt="" />
             سوق السفن
           </button>
         </div>
         <div className="tf-wallet">
-          <img src="https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/906f37c0-d530-4e50-a3ce-00deaaf40a02/coin.png" alt="" />
+          <img src="/__l5e/assets-v1/afe90962-2727-41b7-8733-7fd86bc63bf6/coin.png" alt="" />
           <b>{fmtCoins(ledger.coins)}</b>
         </div>
       </header>

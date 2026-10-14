@@ -37,5 +37,11 @@
       ]
     }
   ],
-  "installCommand": "bun install"
+  "installCommand": "bun install",
+  "rewrites": [
+    {
+      "source": "/__l5e/:path*",
+      "destination": "https://sea-tale-keeper.lovable.app/__l5e/:path*"
+    }
+  ]
 }

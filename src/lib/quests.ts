@@ -12,10 +12,10 @@ export type Quest = {
 };
 
 export const QUESTS: Quest[] = [
-  { id: "catch", title: "ارمِ الشباك 5 مرات", hint: "اصطد من سوق السمك أو من رحلة سفينة", goal: 5, gems: 15, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/21f152aa-6da2-4e28-9df2-90d8692a372d/net.png" },
-  { id: "sell", title: "بِع 3 دفعات صيد", hint: "بِع صيدك بأفضل سعر في السوق", goal: 3, gems: 20, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/d40f7c1c-8c7f-47ec-89a0-120eaa992bde/fish-tuna.png" },
-  { id: "crew", title: "جهّز طاقمًا مرتين", hint: "شغّل بحّارة أو مرشدًا على سفينتك", goal: 2, gems: 25, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/f29ed123-2209-4423-a9f2-f05adfb07583/act-crew.png" },
-  { id: "upgrade", title: "طوّر سفينة واحدة", hint: "ارفع مستوى أي سفينة في مصنع السفن", goal: 1, gems: 40, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/aeaa94a5-0adf-4b22-ae52-9e1740a462a3/act-dock.png" },
+  { id: "catch", title: "ارمِ الشباك 5 مرات", hint: "اصطد من سوق السمك أو من رحلة سفينة", goal: 5, gems: 15, icon: "/__l5e/assets-v1/a78892fb-cc92-43da-8c99-113236cf0e7c/net.png" },
+  { id: "sell", title: "بِع 3 دفعات صيد", hint: "بِع صيدك بأفضل سعر في السوق", goal: 3, gems: 20, icon: "/__l5e/assets-v1/2456c8d2-aeaa-4fe7-9ae2-265f9bf4bb89/fish-tuna.png" },
+  { id: "crew", title: "جهّز طاقمًا مرتين", hint: "شغّل بحّارة أو مرشدًا على سفينتك", goal: 2, gems: 25, icon: "/__l5e/assets-v1/d5df5bb9-5e5a-45d0-b366-a09e0864c775/act-crew.png" },
+  { id: "upgrade", title: "طوّر سفينة واحدة", hint: "ارفع مستوى أي سفينة في مصنع السفن", goal: 1, gems: 40, icon: "/__l5e/assets-v1/1392e852-5aa0-4d33-9df4-d653bb9d02db/act-dock.png" },
 ];
 
 export type QuestState = { day: string; progress: Record<QuestId, number>; claimed: QuestId[]; gems: number };

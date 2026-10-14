@@ -9,18 +9,18 @@
  */
 
 const SFX = {
-  click: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/5454c3b8-e1c2-429d-b107-52f006503366/click.mp3",
-  hover: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/37fe0b37-517a-4708-a6b5-087942e6087e/hover.mp3",
-  intro: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/be42b49f-376d-44dc-ad81-4d9df07e57bb/intro.mp3",
+  click: "/__l5e/assets-v1/9669eeec-80c7-4d9e-8938-27c72ca7a55c/click.mp3",
+  hover: "/__l5e/assets-v1/0aaf5438-73e6-46d2-9ca7-f8c39e329279/hover.mp3",
+  intro: "/__l5e/assets-v1/b2cdaf4f-0795-4729-94dc-cddf5056dfc2/intro.mp3",
 } as const;
 
 const AMBIENT = {
-  waves: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/32dc1517-72e3-4690-98f4-438cbe4a6f72/waves.mp3",
-  night: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/e359855e-79d2-46c5-8346-6df939a42269/night.mp3",
-  winter: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/4e238a17-440a-43b9-a54a-4f94ff4cca66/winter.mp3",
-  wall: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/af90be41-6448-49b4-93b7-fc3a0fcd2306/wall.mp3",
-  spring: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/aef2453f-87b6-49d5-ab5a-6f795e994683/spring.mp3",
-  city: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/12c9c525-1091-42df-b0ff-54f879f8a8f2/city.mp3",
+  waves: "/__l5e/assets-v1/61a7e14a-6f23-41fc-8b15-53e4707b214c/waves.mp3",
+  night: "/__l5e/assets-v1/565a43e8-f72a-4665-bae1-200cdd861868/night.mp3",
+  winter: "/__l5e/assets-v1/fefdf060-a188-4883-b458-bfcba1775f9d/winter.mp3",
+  wall: "/__l5e/assets-v1/224ba656-e20b-49d2-ab6d-820e450e4a29/wall.mp3",
+  spring: "/__l5e/assets-v1/661459e9-2e6a-4921-b42e-9fd3b145c168/spring.mp3",
+  city: "/__l5e/assets-v1/e031da08-29ea-416d-a3b2-850fb745e020/city.mp3",
 } as const;
 
 export type SfxKey = keyof typeof SFX;
