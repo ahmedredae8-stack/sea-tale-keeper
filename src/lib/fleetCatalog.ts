@@ -4,6 +4,7 @@ import hull3 from "@/assets/fleet/hull-3.png";
 import hull4 from "@/assets/fleet/hull-4.png";
 import hull5 from "@/assets/fleet/hull-5.png";
 import hull6 from "@/assets/fleet/hull-6.png";
+import starterBoat from "@/assets/fleet/starter-boat.png";
 
 /** The six drawn hulls. Every hull is trimmed to the same canvas and waterline,
  *  so poses never shift: the nets, ropes and spray are drawn over the hull. */
@@ -59,7 +60,8 @@ const build = (rows: Row[], source: "store" | "tribe", offset: number): FleetShi
     fish,
     tripSeconds,
     source,
-    hull: hulls[hull]!,
+    // The first store boat is the default starter and has its own drawn hull.
+    hull: source === "store" && index === 0 ? starterBoat : hulls[hull]!,
     price,
     currency,
   }));

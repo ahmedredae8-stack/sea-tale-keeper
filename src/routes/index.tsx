@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Moon, Sun } from "lucide-react";
 
+import { useSeaBackground } from "@/lib/artwork";
 import { IntroLoader } from "@/components/IntroLoader";
 import { GameStore } from "@/components/GameStore";
 import { AlertsWindow, EnemiesWindow, InventoryWindow, RankingsWindow } from "@/components/DockWindows";
@@ -72,7 +73,9 @@ function Index() {
   const [phase, setPhase] = useState(currentPhase());
 
   const theme = getTheme(themeId);
-  const scene = getScene(theme, phase);
+  const bundledScene = getScene(theme, phase);
+  const seaBg = useSeaBackground();
+  const scene = seaBg ? { video: seaBg.video ? seaBg.url : "", poster: seaBg.video ? bundledScene.poster : seaBg.url } : bundledScene;
   const ambient = getAmbient(theme, phase);
 
   useEffect(() => setThemeId(loadThemeId()), []);

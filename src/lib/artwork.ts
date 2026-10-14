@@ -50,15 +50,51 @@ export function useArtworkMap() {
       } catch { /* fall back to bundled art */ }
     };
     void refresh();
+    const channel = typeof BroadcastChannel !== "undefined" ? new BroadcastChannel(ARTWORK_UPDATED) : null;
+    if (channel) channel.onmessage = () => void refresh();
+    const live = supabase.channel(`artwork-${Math.random().toString(36).slice(2)}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "artwork_poses" }, () => void refresh())
+      .subscribe();
     window.addEventListener(ARTWORK_UPDATED, refresh);
     window.addEventListener("focus", refresh);
     const timer = window.setInterval(refresh, 180_000);
     return () => {
       alive = false;
+      channel?.close();
+      void supabase.removeChannel(live);
       window.removeEventListener(ARTWORK_UPDATED, refresh);
       window.removeEventListener("focus", refresh);
       window.clearInterval(timer);
     };
   }, []);
   return map;
+}
+/** Tell every open tab and the current page that admin artwork changed. */
+export function announceArtworkUpdate() {
+  window.dispatchEvent(new Event(ARTWORK_UPDATED));
+  if (typeof BroadcastChannel !== "undefined") { const c = new BroadcastChannel(ARTWORK_UPDATED); c.postMessage(Date.now()); c.close(); }
+}
+
+export const isVideoPath = (path: string) => /\.(mp4|webm)$/i.test(path);
+
+/** Newest admin-uploaded sea background (image or looping video), if any. */
+export function useSeaBackground() {
+  const [bg, setBg] = useState<{ url: string; video: boolean } | null>(null);
+  useEffect(() => {
+    let alive = true;
+    const refresh = async () => {
+      try {
+        const row = (await listArtwork()).find((r) => r.category === "background");
+        if (!row) { if (alive) setBg(null); return; }
+        const url = await artworkUrl(row.image_path);
+        if (alive) setBg({ url, video: isVideoPath(row.image_path) });
+      } catch { /* keep bundled background */ }
+    };
+    void refresh();
+    window.addEventListener(ARTWORK_UPDATED, refresh);
+    const channel = typeof BroadcastChannel !== "undefined" ? new BroadcastChannel(ARTWORK_UPDATED) : null;
+    if (channel) channel.onmessage = () => void refresh();
+    return () => { alive = false; channel?.close(); window.removeEventListener(ARTWORK_UPDATED, refresh); };
+  }, []);
+  return bg;
 }
