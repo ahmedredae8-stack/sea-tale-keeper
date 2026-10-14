@@ -58,9 +58,9 @@ export function FishingFleet({ themeId, themeName }: { themeId: string; themeNam
   const [hullIndex, setHullIndex] = useState(0);
   const [spray, setSpray] = useState(true);
   const [poseOverride, setPoseOverride] = useState<ShipPose | null>(null);
-  const bundledHull = hulls[hullIndex] ?? hulls[0];
   // Lane IDs identify instances, not catalog products: all starter boats use ship-1.
   const catalogId = [1, 2, 5, 6, 7, 10][hullIndex] ?? 1;
+  const bundledHull = fleetCatalog.find((s) => s.id === catalogId)?.hull ?? hulls[hullIndex] ?? hulls[0];
   const activeHull = resolveShipArtwork(artwork, catalogId, "idle", bundledHull);
   const timers = useRef<number[]>([]);
   const [haul, setHaul] = useState<ReturnType<typeof rollHaul> | null>(null);
