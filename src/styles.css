@@ -2622,3 +2622,152 @@
   transform:rotate(45deg); background:linear-gradient(135deg, var(--tos-gold, #d8b25a), var(--tos-gold-deep, #8a6a24)); border:0; color:var(--tos-abyss, #08111f); }
 .tos-seal svg { transform:rotate(-45deg); width:1.1rem; height:1.1rem; }
 .phase-chip { border-radius:999px !important; font-size:.6rem !important; letter-spacing:.04em; }
+
+/* ══ Throne of Seas — screen system v3 (intro, market, yard, haul, reward, settings, tribe) ══ */
+:root {
+  --tos-btn-face: linear-gradient(180deg, color-mix(in oklab, var(--tos-gold) 92%, white) 0%, var(--tos-gold) 45%, var(--tos-gold-deep) 100%);
+  --tos-btn-edge: color-mix(in oklab, var(--tos-gold-deep) 70%, black);
+  --tos-card: linear-gradient(160deg, color-mix(in oklab, var(--tos-panel-hi) 85%, transparent), color-mix(in oklab, var(--tos-abyss) 92%, transparent));
+  --tos-glow-aqua: 0 0 0 1px color-mix(in oklab, var(--tos-aqua) 45%, transparent), 0 0 22px color-mix(in oklab, var(--tos-aqua) 25%, transparent);
+}
+
+/* Shield button: angled gold plate with a pressable lip */
+.tos-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  min-height: 2.6rem; padding: .5rem 1.2rem; font-family: var(--tos-display); font-weight: 800; font-size: .9rem;
+  color: var(--tos-abyss); background: var(--tos-btn-face); border: 0; cursor: pointer;
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%);
+  box-shadow: inset 0 -4px 0 var(--tos-btn-edge), inset 0 2px 0 color-mix(in oklab, white 55%, transparent);
+  transition: transform .12s ease, filter .15s ease;
+}
+.tos-btn:hover:not(:disabled) { filter: brightness(1.1); }
+.tos-btn:active:not(:disabled) { transform: translateY(2px); box-shadow: inset 0 -1px 0 var(--tos-btn-edge); }
+.tos-btn:disabled { filter: grayscale(.7) brightness(.7); cursor: not-allowed; }
+.tos-btn-ghost { color: var(--tos-aqua); background: color-mix(in oklab, var(--tos-aqua) 12%, transparent); box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--tos-aqua) 60%, transparent); }
+.tos-x { position: absolute; top: .7rem; inset-inline-start: .7rem; z-index: 2; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: .6rem; color: var(--tos-text); background: color-mix(in oklab, var(--tos-abyss) 70%, transparent); border: 1px solid var(--tos-line); transform: rotate(45deg); }
+.tos-x > svg { transform: rotate(-45deg); }
+
+/* ── Intro ── */
+.tos-intro { position: fixed; inset: 0; z-index: 100; overflow: hidden; background: var(--tos-abyss); color: var(--tos-text); transition: opacity .55s ease, transform .55s ease; }
+.tos-intro.out { opacity: 0; transform: scale(1.06); pointer-events: none; }
+.tos-intro-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: tosIntroZoom 9s ease-out both; }
+.tos-intro::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in oklab, var(--tos-abyss) 80%, transparent) 0%, transparent 28%, transparent 55%, var(--tos-abyss) 96%); }
+.tos-intro-rays { position: absolute; inset: -30%; z-index: 1; background: conic-gradient(from 0deg at 50% 32%, transparent 0 8%, color-mix(in oklab, var(--tos-gold) 16%, transparent) 10%, transparent 13% 30%, color-mix(in oklab, var(--tos-aqua) 12%, transparent) 33%, transparent 36% 58%, color-mix(in oklab, var(--tos-gold) 14%, transparent) 61%, transparent 64%); mix-blend-mode: screen; animation: tosSpin 24s linear infinite; }
+.tos-intro-top, .tos-intro-bottom { position: absolute; inset-inline: 0; z-index: 2; display: flex; align-items: center; }
+.tos-intro-top { top: 6%; flex-direction: column; gap: .4rem; text-align: center; animation: tosDrop .9s cubic-bezier(.2,1.4,.4,1) both .2s; }
+.tos-intro-badge { padding: .2rem .9rem; font-size: .7rem; font-weight: 800; letter-spacing: .2em; color: var(--tos-abyss); background: var(--tos-aqua); clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
+.tos-intro-title { display: flex; flex-direction: column; line-height: .9; font-family: var(--tos-display); filter: drop-shadow(0 6px 0 var(--tos-abyss)) drop-shadow(0 0 24px color-mix(in oklab, var(--tos-gold) 55%, transparent)); }
+.tos-intro-title span { font-size: clamp(2rem, 9vw, 3.2rem); color: var(--tos-text); }
+.tos-intro-title b { font-size: clamp(3.4rem, 16vw, 5.8rem); background: var(--tos-btn-face); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tos-intro-top p { font-size: .9rem; font-weight: 700; color: color-mix(in oklab, var(--tos-text) 85%, transparent); text-shadow: 0 2px 8px var(--tos-abyss); }
+.tos-intro-bottom { bottom: 5%; justify-content: center; gap: 1rem; padding: 0 1.5rem; animation: tosRise .8s ease both .4s; }
+.tos-intro-ring { --p: 0deg; position: relative; flex: none; display: grid; place-items: center; width: 4.6rem; height: 4.6rem; border-radius: 50%; background: conic-gradient(var(--tos-gold) var(--p), color-mix(in oklab, var(--tos-text) 14%, transparent) 0); box-shadow: 0 0 30px color-mix(in oklab, var(--tos-gold) 40%, transparent); }
+.tos-intro-ring::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--tos-abyss); }
+.tos-intro-ring span { position: relative; font-family: var(--tos-display); font-size: 1.35rem; color: var(--tos-gold); }
+.tos-intro-ring small { font-size: .6em; }
+.tos-intro-status { display: flex; flex-direction: column; gap: .5rem; min-width: 10rem; }
+.tos-intro-status strong { font-family: var(--tos-display); font-size: 1.05rem; color: var(--tos-text); text-shadow: 0 0 14px color-mix(in oklab, var(--tos-aqua) 60%, transparent); }
+.tos-intro-steps { display: flex; gap: .3rem; }
+.tos-intro-steps li { flex: 1; height: .35rem; border-radius: 99px; background: color-mix(in oklab, var(--tos-text) 18%, transparent); transition: background .3s; }
+.tos-intro-steps li.done { background: var(--tos-gold); }
+.tos-intro-steps li.now { background: var(--tos-aqua); box-shadow: 0 0 10px var(--tos-aqua); animation: tosPulse .8s ease-in-out infinite alternate; }
+@keyframes tosIntroZoom { from { transform: scale(1.18); } to { transform: scale(1); } }
+@keyframes tosSpin { to { transform: rotate(360deg); } }
+@keyframes tosDrop { from { opacity: 0; transform: translateY(-40px) scale(.8); } }
+@keyframes tosRise { from { opacity: 0; transform: translateY(30px); } }
+@keyframes tosPulse { to { opacity: .55; } }
+
+/* ── Fish market ── */
+.tos-market { display: flex; flex-direction: column; gap: .8rem; color: var(--tos-text); }
+.tos-market-hero { position: relative; margin: 0; overflow: hidden; border-radius: 1rem; border: 1px solid var(--tos-line); }
+.tos-market-hero img { width: 100%; aspect-ratio: 16/7; object-fit: cover; display: block; }
+.tos-market-hero figcaption { position: absolute; inset-inline-end: .7rem; bottom: .7rem; display: flex; flex-direction: column; padding: .4rem .9rem; border-radius: .7rem; background: color-mix(in oklab, var(--tos-abyss) 78%, transparent); backdrop-filter: blur(8px); border: 1px solid color-mix(in oklab, var(--tos-gold) 50%, transparent); }
+.tos-market-hero small { font-size: .65rem; color: var(--tos-subtle); }
+.tos-market-hero strong { font-family: var(--tos-display); font-size: 1.3rem; color: var(--tos-gold); }
+.tos-fish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: .6rem; }
+.tos-fish-card { display: flex; flex-direction: column; align-items: center; gap: .3rem; padding: .7rem .5rem .6rem; text-align: center; border-radius: 1rem; background: var(--tos-card); border: 1px solid var(--tos-line); }
+.tos-fish-card img { width: 4.2rem; height: 4.2rem; object-fit: contain; filter: drop-shadow(0 6px 10px color-mix(in oklab, var(--tos-aqua) 35%, transparent)); }
+.tos-fish-card strong { font-weight: 800; }
+.tos-fish-card span { font-size: .7rem; color: var(--tos-subtle); }
+.tos-fish-card .tos-btn { min-height: 2.1rem; font-size: .78rem; margin-top: .2rem; }
+.tos-empty { padding: 1.6rem 1rem; text-align: center; font-size: .85rem; color: var(--tos-subtle); border-radius: 1rem; border: 1.5px dashed var(--tos-line); }
+
+/* ── Shipyard ── */
+.tos-yard { display: flex; flex-direction: column; gap: .8rem; color: var(--tos-text); }
+.tos-seg { display: flex; padding: .25rem; gap: .25rem; border-radius: 99px; background: color-mix(in oklab, var(--tos-abyss) 75%, transparent); border: 1px solid var(--tos-line); }
+.tos-seg button { flex: 1; padding: .45rem; border-radius: 99px; font-weight: 800; font-size: .82rem; color: var(--tos-subtle); transition: all .2s; }
+.tos-seg button.on { color: var(--tos-abyss); background: var(--tos-aqua); box-shadow: var(--tos-glow-aqua); }
+.tos-yard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: .6rem; }
+.tos-yard-card { position: relative; width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: .15rem; padding: .6rem; text-align: start; border-radius: 1rem; background: var(--tos-card); border: 1px solid var(--tos-line); transition: transform .15s, box-shadow .15s; }
+.tos-yard-card:hover { transform: translateY(-3px); box-shadow: var(--tos-glow-aqua); }
+.tos-yard-card img { width: 100%; aspect-ratio: 4/3; object-fit: contain; margin-bottom: .2rem; filter: drop-shadow(0 8px 10px color-mix(in oklab, var(--tos-abyss) 80%, transparent)); }
+.tos-yard-card strong { font-weight: 800; font-size: .9rem; }
+.tos-yard-card small { font-size: .68rem; color: var(--tos-subtle); }
+.tos-yard-card em { font-style: normal; font-weight: 800; font-size: .78rem; color: var(--tos-gold); }
+.tos-yard-tier { position: absolute; top: .45rem; inset-inline-end: .45rem; padding: 0 .4rem; font-family: var(--tos-display); font-size: .7rem; color: var(--tos-aqua); border: 1px solid color-mix(in oklab, var(--tos-aqua) 50%, transparent); border-radius: .35rem; }
+.tos-yard-detail { position: sticky; bottom: 0; display: grid; grid-template-columns: 9rem 1fr; gap: .8rem; align-items: center; padding: .8rem; border-radius: 1.1rem; background: color-mix(in oklab, var(--tos-abyss) 94%, transparent); border: 1px solid color-mix(in oklab, var(--tos-gold) 55%, transparent); box-shadow: 0 -12px 30px color-mix(in oklab, var(--tos-abyss) 80%, transparent); animation: tosRise .3s ease both; }
+.tos-yard-detail img { width: 100%; object-fit: contain; }
+.tos-yard-detail h3 { font-family: var(--tos-display); font-size: 1.2rem; color: var(--tos-gold); }
+.tos-yard-detail p { font-size: .75rem; color: var(--tos-subtle); }
+.tos-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+
+/* ── Catch result ── */
+.tos-haul { position: relative; width: min(92%, 26rem); overflow: hidden; display: flex; flex-direction: column; align-items: center; gap: .6rem; padding: 0 1rem 1rem; text-align: center; color: var(--tos-text); border-radius: 1.4rem; background: linear-gradient(180deg, var(--tos-panel-hi), var(--tos-abyss)); border: 1.5px solid color-mix(in oklab, var(--tos-gold) 60%, transparent); box-shadow: 0 30px 60px color-mix(in oklab, black 60%, transparent), 0 0 40px color-mix(in oklab, var(--tos-gold) 25%, transparent); animation: tosDrop .5s cubic-bezier(.2,1.4,.4,1) both; }
+.tos-haul-art { width: calc(100% + 2rem); aspect-ratio: 16/9; object-fit: cover; mask-image: linear-gradient(180deg, black 65%, transparent); }
+.tos-haul h2 { margin-top: -1.6rem; font-family: var(--tos-display); font-size: 1.5rem; color: var(--tos-gold); text-shadow: 0 3px 0 var(--tos-abyss); }
+.tos-haul ul { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.tos-haul li { display: flex; flex-direction: column; align-items: center; width: 5rem; padding: .4rem; border-radius: .8rem; background: color-mix(in oklab, var(--tos-aqua) 10%, transparent); border: 1px solid color-mix(in oklab, var(--tos-aqua) 40%, transparent); }
+.tos-haul li img { width: 3rem; height: 3rem; object-fit: contain; }
+.tos-haul li strong { font-size: .72rem; }
+.tos-haul li span { font-family: var(--tos-display); color: var(--tos-gold); }
+.tos-haul p { font-size: .75rem; color: var(--tos-subtle); }
+
+/* ── Daily reward: treasury track ── */
+.daily-overlay { background: color-mix(in oklab, var(--tos-abyss) 75%, transparent); }
+.daily-panel { width: min(100%, 25rem); padding: 1.1rem; border-radius: 1.6rem; color: var(--tos-text); background: radial-gradient(90% 50% at 50% 0%, color-mix(in oklab, var(--tos-aqua) 22%, transparent), transparent 70%), linear-gradient(180deg, var(--tos-panel-hi), var(--tos-abyss)); border: 1.5px solid color-mix(in oklab, var(--tos-aqua) 45%, transparent); }
+.daily-head { display: flex; flex-direction: column; align-items: center; gap: .15rem; margin-bottom: .9rem; }
+.daily-kicker { font-size: .65rem; font-weight: 800; letter-spacing: .15em; color: var(--tos-aqua); }
+.daily-title { margin: 0; font-family: var(--tos-display); font-size: 1.6rem; background: var(--tos-btn-face); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.daily-streak b { font-family: var(--tos-display); font-size: 1.3rem; color: var(--tos-gold); margin-inline-end: .3rem; }
+.daily-streak span { font-size: .75rem; color: var(--tos-subtle); }
+.daily-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: .45rem; counter-reset: d; }
+.daily-cell { position: relative; display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .5rem .2rem; border-radius: .9rem; background: var(--tos-card); border: 1px solid var(--tos-line); }
+.daily-cell small { position: absolute; top: .25rem; inset-inline-start: .4rem; font-family: var(--tos-display); font-size: .7rem; color: var(--tos-subtle); }
+.daily-cell img { width: 2.4rem; height: 2.4rem; object-fit: contain; }
+.daily-cell b { font-size: .75rem; color: var(--tos-gold); }
+.daily-cell-past { opacity: .4; }
+.daily-cell-past::after { content: "✓"; position: absolute; top: .2rem; inset-inline-end: .4rem; color: var(--tos-lime); font-weight: 900; }
+.daily-cell-now { border-color: var(--tos-gold); box-shadow: 0 0 0 1px var(--tos-gold), 0 0 22px color-mix(in oklab, var(--tos-gold) 40%, transparent); animation: tosPulse 1s ease-in-out infinite alternate; }
+.daily-grand { display: flex; align-items: center; gap: .8rem; margin-top: .5rem; padding: .6rem .8rem; border-radius: 1rem; background: linear-gradient(90deg, color-mix(in oklab, var(--tos-violet) 30%, transparent), color-mix(in oklab, var(--tos-aqua) 15%, transparent)); border: 1px solid color-mix(in oklab, var(--tos-violet) 55%, transparent); }
+.daily-grand img { width: 3.4rem; height: 3.4rem; object-fit: contain; }
+.daily-grand div { display: flex; flex-direction: column; }
+.daily-grand small, .daily-grand span { font-size: .68rem; color: var(--tos-subtle); }
+.daily-grand b { font-family: var(--tos-display); font-size: 1.05rem; color: var(--tos-text); }
+.daily-claim { width: 100%; margin-top: .9rem; background: var(--tos-btn-face); border-radius: 0; }
+
+/* ── Settings: control deck ── */
+.social-page { background: radial-gradient(80% 40% at 50% 0%, color-mix(in oklab, var(--tos-aqua) 14%, transparent), transparent), var(--tos-abyss); color: var(--tos-text); }
+.social-titlebar h1 { font-family: var(--tos-display); color: var(--tos-gold); }
+.account-banner { flex-direction: row-reverse; padding: 1rem; margin-bottom: 1rem; border: 1px solid var(--tos-line); border-radius: 1.2rem; background: var(--tos-card); }
+.account-banner > .game-sprite { border-radius: 50%; border: 2px solid var(--tos-aqua); box-shadow: var(--tos-glow-aqua); }
+.account-banner small { color: var(--tos-aqua); font-weight: 800; letter-spacing: .1em; }
+.settings-panel { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: .6rem; margin-bottom: 1rem; }
+.settings-section-title { grid-column: 1 / -1; font-size: .72rem; font-weight: 800; letter-spacing: .12em; color: var(--tos-subtle); }
+.setting-row { flex-direction: column; align-items: flex-start; gap: .5rem; padding: .9rem; border: 1px solid var(--tos-line); border-radius: 1rem; background: var(--tos-card); }
+.setting-row > div { flex: 1; }
+.setting-row p { color: var(--tos-subtle); }
+.setting-icon { display: grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: .7rem; color: var(--tos-aqua); background: color-mix(in oklab, var(--tos-aqua) 14%, transparent); }
+.setting-row .game-switch { align-self: flex-end; }
+.logout-button { width: 100%; clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); border-radius: 0; }
+
+/* ── Tribe: war banner ── */
+.tribe-hero { position: relative; flex-direction: column; text-align: center; padding: 1.2rem 1rem; border: 1px solid color-mix(in oklab, var(--tos-gold) 45%, transparent); border-radius: 1.3rem; background: radial-gradient(60% 70% at 50% 0%, color-mix(in oklab, var(--tos-gold) 20%, transparent), transparent), var(--tos-card); }
+.tribe-hero-emblem { width: 6rem; height: 6rem; filter: drop-shadow(0 0 18px color-mix(in oklab, var(--tos-gold) 50%, transparent)); }
+.tribe-hero-text h2 { font-family: var(--tos-display); font-size: 1.6rem; }
+.tribe-block { padding: 1rem; margin-top: .8rem; border: 1px solid var(--tos-line); border-radius: 1.1rem; background: color-mix(in oklab, var(--tos-panel) 70%, transparent); }
+.tribe-block h3 { font-family: var(--tos-display); }
+.tribe-board li, .tribe-members li, .tribe-quests li { border-radius: .8rem; background: color-mix(in oklab, var(--tos-abyss) 65%, transparent); border-color: var(--tos-line); border-inline-start: 3px solid var(--tos-aqua); }
+.tribe-board li:first-child { border-inline-start-color: var(--tos-gold); }
+.tribe-create, .tribe-leave, .tribe-board button, .tribe-members button { border-radius: 99px; color: var(--tos-aqua); border-color: color-mix(in oklab, var(--tos-aqua) 55%, transparent); background: color-mix(in oklab, var(--tos-aqua) 10%, transparent); }
+.tribe-emblems { display: flex; flex-wrap: wrap; gap: .4rem; }
+@media (prefers-reduced-motion: reduce) { .tos-intro-art, .tos-intro-rays, .daily-cell-now, .tos-intro-steps li.now { animation: none; } }
