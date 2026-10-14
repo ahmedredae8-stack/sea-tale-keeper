@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { playSfx } from "@/lib/sound";
 
 const loot = [
-  "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/25365535-261c-4a49-a6e3-842b94b8a2d8/fish-sardine.png",
-  "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/ffebb842-1d7a-4cd2-9fae-d66883e496e6/fish-mackerel.png",
-  "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/d40f7c1c-8c7f-47ec-89a0-120eaa992bde/fish-tuna.png",
-  "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/c3244a96-c3a8-495b-ac9e-2ece36ee74e6/fish-swordfish.png",
-  "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/67e96dc8-9734-4101-8659-09807e61e0af/fish-turtle.png",
-  "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/4b0616ca-5528-47ea-8c87-3ea157b6de3e/fish-pearl.png",
+  "/__l5e/assets-v1/4d947f02-ecc3-4613-b7b5-3e113acc3a97/fish-sardine.png",
+  "/__l5e/assets-v1/bbc91b64-b810-402e-874e-e27d05ef99cd/fish-mackerel.png",
+  "/__l5e/assets-v1/2456c8d2-aeaa-4fe7-9ae2-265f9bf4bb89/fish-tuna.png",
+  "/__l5e/assets-v1/3d1d5bea-96d4-4dc3-a7ef-d15a009a9c5b/fish-swordfish.png",
+  "/__l5e/assets-v1/dac2cc2e-4dae-44f5-a16a-3086c0d6e83e/fish-turtle.png",
+  "/__l5e/assets-v1/ddafcd10-03a7-4e1c-baa8-6921ef5721b0/fish-pearl.png",
 ];
 
 /** Multi-frame net cast: throw → splash → haul, then a small loot burst. */
@@ -31,7 +31,7 @@ export function NetCast({ onDone }: { onDone: () => void }) {
   return (
     <div className="net-stage" role="status" aria-live="polite">
       <div className="net-water" />
-      <img src="https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/21f152aa-6da2-4e28-9df2-90d8692a372d/net.png" alt="" className={`net-img net-${stage}`} />
+      <img src="/__l5e/assets-v1/a78892fb-cc92-43da-8c99-113236cf0e7c/net.png" alt="" className={`net-img net-${stage}`} />
 
       {stage !== "throw" && (
         <>

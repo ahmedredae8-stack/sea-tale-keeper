@@ -29,6 +29,13 @@
       "when": 1791865850141,
       "tag": "0003_allow_admin_background_formats",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791953146032,
+      "tag": "0004_allow_background_videos",
+      "breakpoints": true
     }
   ]
 }

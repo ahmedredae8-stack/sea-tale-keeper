@@ -1,13 +1,12 @@
 import { supabase } from "@/integrations/supabase/client";
 
-const A = "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/";
 export const FISH = [
-  { id: "sardine", name: "سردين", img: A + "25365535-261c-4a49-a6e3-842b94b8a2d8/fish-sardine.png", price: 12, weight: 50 },
-  { id: "mackerel", name: "ماكريل", img: A + "ffebb842-1d7a-4cd2-9fae-d66883e496e6/fish-mackerel.png", price: 34, weight: 25 },
-  { id: "tuna", name: "تونة", img: A + "d40f7c1c-8c7f-47ec-89a0-120eaa992bde/fish-tuna.png", price: 92, weight: 12 },
-  { id: "swordfish", name: "سمك السيف", img: A + "c3244a96-c3a8-495b-ac9e-2ece36ee74e6/fish-swordfish.png", price: 175, weight: 7 },
-  { id: "turtle", name: "سلحفاة", img: A + "67e96dc8-9734-4101-8659-09807e61e0af/fish-turtle.png", price: 214, weight: 4 },
-  { id: "pearl", name: "محار اللؤلؤ", img: A + "4b0616ca-5528-47ea-8c87-3ea157b6de3e/fish-pearl.png", price: 480, weight: 2 },
+  { id: "sardine", name: "سردين", img: "/__l5e/assets-v1/6ee1de86-0dbb-4cd1-8a32-2ddae64f880b/fish-sardine.png", price: 12, weight: 50 },
+  { id: "mackerel", name: "ماكريل", img: "/__l5e/assets-v1/22dd8ddd-6a49-44a3-8b5e-b77d478a6553/fish-mackerel.png", price: 34, weight: 25 },
+  { id: "tuna", name: "تونة", img: "/__l5e/assets-v1/bf2ab850-8f33-4604-b538-342fcda67165/fish-tuna.png", price: 92, weight: 12 },
+  { id: "swordfish", name: "سمك السيف", img: "/__l5e/assets-v1/f540ac8e-9aa5-46f1-8c18-68666fb7b8ef/fish-swordfish.png", price: 175, weight: 7 },
+  { id: "turtle", name: "سلحفاة", img: "/__l5e/assets-v1/7ea2ace5-9054-4e26-8cd9-24c253d2b475/fish-turtle.png", price: 214, weight: 4 },
+  { id: "pearl", name: "محار اللؤلؤ", img: "/__l5e/assets-v1/fc1415ea-a430-4c29-8634-b0229fd9bec9/fish-pearl.png", price: 480, weight: 2 },
 ] as const;
 export type FishId = (typeof FISH)[number]["id"];
 export const CATCHES_UPDATED = "tos:catches";

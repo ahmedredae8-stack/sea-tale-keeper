@@ -3,7 +3,7 @@ import { Eye, EyeOff, ImagePlus, Rocket, Search, Ship, Trash2, UploadCloud } fro
 import { saveOverride, useLiveShips } from "@/lib/shipOverrides";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { ARTWORK_UPDATED, artworkUrl, listArtwork, type ArtworkPose } from "@/lib/artwork";
+import { announceArtworkUpdate, artworkUrl, isVideoPath, listArtwork, type ArtworkPose } from "@/lib/artwork";
 import { fleetCatalog } from "@/lib/fleetCatalog";
 import { WEAPONS } from "@/lib/items";
 import { themes } from "@/lib/themes";
@@ -66,7 +66,7 @@ export function ArtworkStudio() {
     const old = poseRecord(pose);
     if (old) { await supabase.from("artwork_poses").delete().eq("id", old.id); await supabase.storage.from("game-artwork").remove([old.image_path]); }
     setStatus(`تم نشر وضعية «${poses[category].find(([p]) => p === pose)?.[1]}» لـ ${item.name}`);
-    await refresh(); window.dispatchEvent(new Event(ARTWORK_UPDATED)); setBusy(null);
+    await refresh(); announceArtworkUpdate(); setBusy(null);
     } catch { setStatus("تعذّر نشر الصورة. تحقق من الاتصال وحاول مرة أخرى."); }
     finally { setBusy(null); }
   };
@@ -77,7 +77,7 @@ export function ArtworkStudio() {
     if (error) { setStatus("تعذّر حذف الوضعية"); return; }
     await supabase.storage.from("game-artwork").remove([row.image_path]);
     await refresh();
-    window.dispatchEvent(new Event(ARTWORK_UPDATED));
+    announceArtworkUpdate();
   };
 
   const switchCat = (c: "ship" | "rocket") => { setCategory(c); setPreviewPose("idle"); setSelected((c === "ship" ? shipItems : rocketItems)[0]?.key ?? ""); setQuery(""); };
@@ -165,29 +165,32 @@ function ShipTextEditor({ productId }: { productId: string }) {
 }
 
 function BackgroundUploads() {
-  const [rows, setRows] = useState<{ id: string; url: string }[]>([]);
+  const [rows, setRows] = useState<{ id: string; url: string; video: boolean }[]>([]);
   const [msg, setMsg] = useState("");
   const ref = useRef<HTMLInputElement>(null);
   const load = async () => {
     const all = (await listArtwork().catch(() => [])).filter(r => r.category === "background");
-    setRows(await Promise.all(all.map(async r => ({ id: r.id, url: await artworkUrl(r.image_path).catch(() => "") }))));
+    setRows(await Promise.all(all.map(async r => ({ id: r.id, video: isVideoPath(r.image_path), url: await artworkUrl(r.image_path).catch(() => "") }))));
   };
   useEffect(() => { void load(); }, []);
   const upload = async (file: File) => {
-    if (!/^image\/(png|jpeg|webp)$/.test(file.type) || file.size > 8 * 1024 * 1024) { setMsg("اختر صورة PNG أو JPG حتى 8 ميجابايت"); return; }
+    const isVideo = /^video\/(mp4|webm)$/.test(file.type);
+    if (!(isVideo || /^image\/(png|jpeg|webp)$/.test(file.type)) || file.size > (isVideo ? 45 : 8) * 1024 * 1024) { setMsg("اختر صورة PNG/JPG حتى 8 ميجابايت أو فيديو MP4/WebM حتى 45 ميجابايت"); return; }
+    setMsg(isVideo ? "جاري رفع الفيديو…" : "جاري رفع الخلفية…");
     const { data: auth } = await supabase.auth.getUser();
     if (!auth.user) { setMsg("سجل دخولك أولاً"); return; }
-    const path = `${auth.user.id}/bg-${crypto.randomUUID()}.${file.type.split("/")[1]}`;
+    const path = `${auth.user.id}/bg-${crypto.randomUUID()}.${file.type.split("/")[1].replace("jpeg", "jpg")}`;
     const { error } = await supabase.storage.from("game-artwork").upload(path, file, { contentType: file.type });
     if (error) { setMsg("تعذّر الرفع — صلاحية المشرف مطلوبة"); return; }
-    await supabase.from("artwork_poses").insert({ category: "background", subject: file.name.slice(0, 60), pose: "day", image_path: path, created_by: auth.user.id });
-    setMsg("تم رفع الخلفية. اطلب إضافتها للعبة لتصبح متاحة للجميع."); void load();
+    const { error: rowErr } = await supabase.from("artwork_poses").insert({ category: "background", subject: file.name.slice(0, 60), pose: "day", image_path: path, created_by: auth.user.id });
+    if (rowErr) { setMsg("تم رفع الملف لكن تعذّر تسجيله"); return; }
+    setMsg("تم! أصبحت الخلفية الجديدة هي خلفية البحر لكل اللاعبين."); announceArtworkUpdate(); void load();
   };
   return <div className="tos-editor">
     <h3>رفع خلفيات جديدة</h3>
-    <input ref={ref} type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={e => { const f = e.target.files?.[0]; e.target.value = ""; if (f) void upload(f); }} />
-    <Button onClick={() => ref.current?.click()}><UploadCloud /> رفع خلفية</Button>
-    <div className="studio-bgs">{rows.map(r => <img key={r.id} src={r.url} alt="خلفية مرفوعة" />)}</div>
+    <input ref={ref} type="file" accept="image/png,image/jpeg,image/webp,video/mp4,video/webm" hidden onChange={e => { const f = e.target.files?.[0]; e.target.value = ""; if (f) void upload(f); }} />
+    <Button onClick={() => ref.current?.click()}><UploadCloud /> رفع خلفية (صورة أو فيديو)</Button>
+    <div className="studio-bgs">{rows.map(r => r.video ? <video key={r.id} src={r.url} muted loop autoPlay playsInline /> : <img key={r.id} src={r.url} alt="خلفية مرفوعة" />)}</div>
     {msg && <small role="status">{msg}</small>}
   </div>;
 }

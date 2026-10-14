@@ -31,10 +31,10 @@ export const rankLabel: Record<string, string> = {
 };
 
 export const EMBLEMS = [
-  { id: "skull", src: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/02c75f53-86a9-4504-9772-daff6f771381/skull.png" },
-  { id: "ship", src: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/31f47bd7-8999-4049-8835-3de413357bf2/cat-ship.png" },
-  { id: "chest", src: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/08453a7e-1779-4eb1-9220-dfabe5462e44/chest.png" },
-  { id: "gem", src: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/81b9318d-8399-478f-bd28-abec7665a1a6/gem.png" },
+  { id: "skull", src: "/__l5e/assets-v1/402ed8cd-d4cd-4291-a942-cdb84abbe4c1/skull.png" },
+  { id: "ship", src: "/__l5e/assets-v1/39653550-1f4f-42f0-86c5-d0f656b3b796/cat-ship.png" },
+  { id: "chest", src: "/__l5e/assets-v1/772930b6-6633-4188-a545-3c2c59c65536/chest.png" },
+  { id: "gem", src: "/__l5e/assets-v1/a7998f4c-5c5e-48cc-8287-befdc38e3ba7/gem.png" },
 ];
 
 export function emblemSrc(id: string) {

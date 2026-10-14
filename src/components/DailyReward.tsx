@@ -5,13 +5,13 @@ import { playSfx } from "@/lib/sound";
 
 const KEY = "ib.daily.v1";
 const DAYS = [
-  { d: 1, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/906f37c0-d530-4e50-a3ce-00deaaf40a02/coin.png", label: "5,000" },
-  { d: 2, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/906f37c0-d530-4e50-a3ce-00deaaf40a02/coin.png", label: "10,000" },
-  { d: 3, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/81b9318d-8399-478f-bd28-abec7665a1a6/gem.png", label: "15" },
-  { d: 4, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/906f37c0-d530-4e50-a3ce-00deaaf40a02/coin.png", label: "25,000" },
-  { d: 5, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/81b9318d-8399-478f-bd28-abec7665a1a6/gem.png", label: "40" },
-  { d: 6, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/08453a7e-1779-4eb1-9220-dfabe5462e44/chest.png", label: "صندوق" },
-  { d: 7, icon: "https://project--356242e8-144f-42b3-8292-474399c324ac.lovable.app/__l5e/assets-v1/31f47bd7-8999-4049-8835-3de413357bf2/cat-ship.png", label: "سفينة" },
+  { d: 1, icon: "/__l5e/assets-v1/afe90962-2727-41b7-8733-7fd86bc63bf6/coin.png", label: "5,000" },
+  { d: 2, icon: "/__l5e/assets-v1/afe90962-2727-41b7-8733-7fd86bc63bf6/coin.png", label: "10,000" },
+  { d: 3, icon: "/__l5e/assets-v1/a7998f4c-5c5e-48cc-8287-befdc38e3ba7/gem.png", label: "15" },
+  { d: 4, icon: "/__l5e/assets-v1/afe90962-2727-41b7-8733-7fd86bc63bf6/coin.png", label: "25,000" },
+  { d: 5, icon: "/__l5e/assets-v1/a7998f4c-5c5e-48cc-8287-befdc38e3ba7/gem.png", label: "40" },
+  { d: 6, icon: "/__l5e/assets-v1/772930b6-6633-4188-a545-3c2c59c65536/chest.png", label: "صندوق" },
+  { d: 7, icon: "/__l5e/assets-v1/39653550-1f4f-42f0-86c5-d0f656b3b796/cat-ship.png", label: "سفينة" },
 ];
 
 type Saved = { day: string; streak: number };
