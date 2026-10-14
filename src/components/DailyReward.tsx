@@ -71,7 +71,7 @@ export function DailyReward() {
         </ol>
         <div className={`daily-grand ${streak === 7 ? "daily-cell-now" : ""}`}>
           <img src={big.icon} alt="" width={56} height={56} />
-          <div><small>اليوم السابع</small><b>{big.label}</b><span>100 ماسة لمن يكمل الأسبوع</span></div>
+          <div><small>اليوم السابع</small><b>{big.label}</b><span>أكمل الأسبوع لتفتحها</span></div>
         </div>
         <button type="button" onClick={() => close(0.9)} className="tos-btn daily-claim">استلام مكافأة اليوم</button>
       </div>
