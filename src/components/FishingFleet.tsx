@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { X } from "lucide-react";
 
-import { hulls, type ShipPose } from "@/lib/fleetCatalog";
+import { fleetCatalog, hulls, type ShipPose } from "@/lib/fleetCatalog";
 import actSail from "@/assets/actions/act-sail.png.asset.json";
 import actCrew from "@/assets/actions/act-crew.png.asset.json";
 import actSell from "@/assets/actions/act-sell.png.asset.json";
